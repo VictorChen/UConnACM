@@ -1,0 +1,25 @@
+.signup-box{
+	width: 600px;
+	margin: 0 auto;
+	margin-bottom: 30px;
+}
+
+legend{
+	color: #005580;
+}
+
+.signup-box-members{
+	width: 600px;
+	margin: 0 auto;
+	margin-bottom: 30px;
+	margin-top: 100px;
+	opacity: 0.9;
+}
+
+.entrance{
+	background: url('http://acm.uconn.edu/img/entrance.jpg') repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}

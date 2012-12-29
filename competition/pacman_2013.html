@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>UCONN ACM PacMan Competition</title>
+		<meta charset="UTF-8">
+		<meta name="description" content="UConn ACM's PacMan 2013 Competition">
+		<link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
+		<link rel="stylesheet" href="../css/style.css" type="text/css" />
+		<link rel="stylesheet" href="../css/pacman.css" type="text/css" />
+		<link rel="shortcut icon" href="../img/icon.ico">
+		<script src="../js/lib/jquery.js"></script>
+		<script src="../js/lib/bootstrap.min.js"></script>
+		<script src="../js/header.js"></script>
+		<script src="../js/footer.js"></script>
+		<script src="../js/googleanalytics.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				displayHeader("../",3);
+				displayFooter("../");
+			});
+			
+			function changeTab(divID, menuID){
+				$("#pacman-menu li").removeClass("active");
+				$("#" + menuID).addClass("active");
+				$(".menuItem.active").slideUp("fast", function(){
+					$("#" + divID).slideDown("fast");
+					$(this).removeClass("active");
+					$("#" + divID).addClass("active");
+				});
+				return false;
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class="page-wrapper">
+			<div class="content-wrapper">
+				<div id="page-header" class="row-fluid">
+					<div class="span12 hero-unit black">
+						<h1>PacMan AI Programming Competition</h1>
+					</div>
+				</div>
+				
+				<div class="content-padded">
+					<div class="row-fluid">
+						<div class="span3">
+							<div class="sidebar-nav">
+								<ul id="pacman-menu" class="nav nav-list">
+									<li id="menu1" class="active"><a href="#" onClick="return changeTab('play','menu1');">How to Play</a></li>
+									<li id="menu2"><a href="#" onClick="return changeTab('download','menu2');">Download Source Code</a></li>
+									<li id="menu3"><a href="#" onClick="return changeTab('start','menu3');">Getting Started</a></li>
+									<li id="menu5"><a href="#" onClick="return changeTab('rules','menu5');">Rules</a></li>
+									<li><img src="../img/pacman.png"></img></li>
+								</ul>
+							</div>
+						</div>
+						
+						<div id="play" class="span9 menuItem active">
+							<h2>How to play:</h2>
+							<p>PacMan is an old arcade game developed by Namco. If you don't know how to play PacMan then you don't have a childhood. But, don't worry, it's simple. You control pacman using your arrow keys (up, down, left, right) and your goal is to collect all the coins on the screen. However, you must do so while avoiding "ghosts". There will be four ghosts trying to hunt down pacman. If a ghost touches pacman then he will die. There are also powerups located in different places that pacman can pick up. When pacman picks up a powerup, he will be able to kill the ghosts for a short duration by touching them. Once all of the coins are collected, you win.</p>
+							<h2>Programming competition:</h2>
+							<p>ACM's PacMan competition is based on the traditional PacMan game, but with a few changes. There will be two pacmans in the game at once. Each pacman is controlled by a different person with JAVA code instead of arrow keys. There are no powerups in the game and pacmans can bypass each other. Once both pacmans have died, the pacman with the most coins collected will be the winner.</p>
+							
+							<p>Information provided to each player:</p>
+							<ul>
+								<li>Location of ghosts</li>
+								<li>Location of both pacmans</li>
+								<li>Map of the game (walls, coins)</li>
+								<li>Whether or not a pacman is currently dead</li>
+							</ul>
+						</div>
+						
+						<div id="download" style="display: none;" class="span9 menuItem">
+							<h2>Download source code:</h2>
+							<p>We are currently fixing up the code. Stay tuned!</p>
+							<h2>Import code to eclipse:</h2>
+							<p>1. File >> Import</p>
+							<img class="center" src="../img/import1.png"></img>
+							<p>2. Select "Existing Projects into Workspace"</p>
+							<img class="center" src="../img/import2.png"></img>
+							<p>3. Done! You should now see the folder containing the source code
+							<img class="center" src="../img/import3.png"></img>
+						</div>
+						
+						<div id="start" style="display: none;" class="span9 menuItem">
+							<h2>Getting started:</h2>
+							<p>Open up the file PacMan2.java</p>
+							<p>You should notice 3 things about the code:</p>
+							<ol>
+								<li>Long comment</li>
+								<li>empty init() method</li>
+								<li>move() method</li>
+							</ol>
+							<p>The long comment that you see is a detailed documentation of the available methods that you are allowed to use. You should read this!</p>
+							<p>The empty init() method is similar to a constructor. This method gets called when pacman is initially created (start of a round). You should initilize any variables that you have here.</p>
+							<p>The move method is the most important part of the program. This is where you will write your algorithm to control the pacman. This method returns an integer: 1 = go up, 2 = go down, 3 = go left, 4 = go right and 5 = continue going the current direction. If you want your code to be more readable, you can return Constant.UP, Constant.DOWN, Constant.LEFT, Constant.RIGHT or Constant.CONTINUE instead of numbers.</p>
+							<p>Example given in PacMan2.java:</p>
+							<img class="center" src="../img/move_method.png"></img>
+							<p>The above code is a very simple algorithm for controlling the pacman. If first checks if the pacman is at a particular block and not in between two blocks. Constant.BLOCK_SIZE is the size of a square in the map and getX() and getY() returns the x and y coordinate of the pacman. If it is, then it simply takes a random direction. If it is not, then it will continue going its current direction. Note that initially, the pacman will be in a particular block. Also, if the direction returned is invalid (going that direction will hit a wall) then pacman will use its current direction instead.</p>
+						</div>
+						
+						<div id="rules" style="display: none;" class="span9 menuItem">
+							<h2>Rules:</h2>
+							<ol>
+								<li>You must submit 2 versions of your code: PacMan1.java and PacMan2.java.</li>
+								<li>You can ONLY use methods that you are allowed to use (read the comment in PacMan1.java or PacMan2.java for the list of methods).</li>
+								<li>You should ONLY write code in PacMan1.java and PacMan2.java. Do not touch any other files.</li>
+								<li>Inside PacMan1.java or PacMan2.java, feel free to add as many private variables or methods as you'd like</li>
+								<li>Do NOT edit the last 2 lines of code inside PacMan1.java and PacMan2.java.</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<footer></footer>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>UCONN ACM Poll</title>
+		<meta charset="UTF-8">
+		<meta name="robots" content="noindex">
+		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+		<link rel="stylesheet" href="css/meeting_time.css" type="text/css" />
+		<link rel="shortcut icon" href="img/icon.ico">
+		<script src="js/lib/jquery.js"></script>
+		<script src="js/lib/bootstrap.min.js"></script>
+		<script src="js/header.js"></script>
+		<script src="js/footer.js"></script>
+		<script src="js/googleanalytics.js"></script>
+		<script>
+			$(document).ready(function(){
+				displayHeader("");
+				displayFooter("");
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="page-wrapper">
+			<div class="content-wrapper">
+				<div id="page-header" class="row-fluid">
+					<div class="span12 hero-unit black">
+						<h1>ACM Meeting Time Poll</h1>
+						<p></p>
+					</div>
+				</div>
+				
+				<div class="content-padded">
+					<p>Check all the times you are available so we can decide when to have our meetings:</p>
+					<form action="php/meeting_time.php" method="post">
+						<div class="row-fluid">
+							<div class="span2 well">
+								<p class="day">Monday:</p>  
+								<label><input type="checkbox" name="monday[]" value="6:30pm" /> 6:30pm</label><br/>
+								<label><input type="checkbox" name="monday[]" value="7:00pm" /> 7:00pm</label><br/>
+								<label><input type="checkbox" name="monday[]" value="7:30pm" /> 7:30pm</label><br/>
+								<label><input type="checkbox" name="monday[]" value="8:00pm" /> 8:00pm</label><br/>
+								<label><input type="checkbox" name="monday[]" value="8:30pm" /> 8:30pm</label><br/>
+								<label><input type="checkbox" name="monday[]" value="9:00pm" /> 9:00pm</label><br/>
+							</div>
+							<div class="span2 well">
+								<p class="day">Tuesday:</p>  
+								<label><input type="checkbox" name="tuesday[]" value="6:30pm" /> 6:30pm</label><br/>
+								<label><input type="checkbox" name="tuesday[]" value="7:00pm" /> 7:00pm</label><br/>
+								<label><input type="checkbox" name="tuesday[]" value="7:30pm" /> 7:30pm</label><br/>
+								<label><input type="checkbox" name="tuesday[]" value="8:00pm" /> 8:00pm</label><br/>
+								<label><input type="checkbox" name="tuesday[]" value="8:30pm" /> 8:30pm</label><br/>
+								<label><input type="checkbox" name="tuesday[]" value="9:00pm" /> 9:00pm</label><br/>
+							</div>
+							<div class="span2 well">
+								<p class="day">Wednesday:</p>  
+								<label><input type="checkbox" name="wednesday[]" value="6:30pm" /> 6:30pm</label><br/>
+								<label><input type="checkbox" name="wednesday[]" value="7:00pm" /> 7:00pm</label><br/>
+								<label><input type="checkbox" name="wednesday[]" value="7:30pm" /> 7:30pm</label><br/>
+								<label><input type="checkbox" name="wednesday[]" value="8:00pm" /> 8:00pm</label><br/>
+								<label><input type="checkbox" name="wednesday[]" value="8:30pm" /> 8:30pm</label><br/>
+								<label><input type="checkbox" name="wednesday[]" value="9:00pm" /> 9:00pm</label><br/>
+							</div>
+							<div class="span2 well">
+								<p class="day">Thursday:</p>  
+								<label><input type="checkbox" name="thursday[]" value="6:30pm" /> 6:30pm</label><br/>
+								<label><input type="checkbox" name="thursday[]" value="7:00pm" /> 7:00pm</label><br/>
+								<label><input type="checkbox" name="thursday[]" value="7:30pm" /> 7:30pm</label><br/>
+								<label><input type="checkbox" name="thursday[]" value="8:00pm" /> 8:00pm</label><br/>
+								<label><input type="checkbox" name="thursday[]" value="8:30pm" /> 8:30pm</label><br/>
+								<label><input type="checkbox" name="thursday[]" value="9:00pm" /> 9:00pm</label><br/>
+							</div>
+							<div class="span2 well">
+								<p class="day">Friday:</p>  
+								<label><input type="checkbox" name="friday[]" value="6:30pm" /> 6:30pm</label><br/>
+								<label><input type="checkbox" name="friday[]" value="7:00pm" /> 7:00pm</label><br/>
+								<label><input type="checkbox" name="friday[]" value="7:30pm" /> 7:30pm</label><br/>
+								<label><input type="checkbox" name="friday[]" value="8:00pm" /> 8:00pm</label><br/>
+								<label><input type="checkbox" name="friday[]" value="8:30pm" /> 8:30pm</label><br/>
+								<label><input type="checkbox" name="friday[]" value="9:00pm" /> 9:00pm</label><br/>
+							</div>
+							<div class="span1">
+								<button class="btn btn-primary" type="submit">Submit</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<footer></footer>
+		</div>
+	</body>
+</html>

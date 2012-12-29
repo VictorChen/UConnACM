@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>UCONN ACM Webmaster</title>
+		<meta charset="UTF-8">
+		<meta name="robots" content="noindex">
+		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+		<link rel="stylesheet" href="css/signup.css" type="text/css" />
+		<link rel="shortcut icon" href="img/icon.ico">
+		<script src="js/lib/jquery.js"></script>
+		<script src="js/lib/bootstrap.min.js"></script>
+		<script src="js/header.js"></script>
+		<script src="js/footer.js"></script>
+		<script src="js/googleanalytics.js"></script>
+		<script type="text/javascript">
+			function validateForm(){
+				var isValid = true;
+				$("input, textarea").each(function(){
+					if ($(this).attr("id") === "inputEmail"){
+						if (!validateEmail()){
+							isValid = false;
+						}
+					}else{
+						if ($.trim($(this).val()).length == 0){
+							$(this).next().show("slow");
+							isValid = false;
+						}else{
+							$(this).next().hide("slow");
+						}
+					}
+				});
+				return isValid;
+			}
+			
+			function validateEmail(){
+				var x = $("#inputEmail").val();
+				var atpos = x.indexOf("@");
+				var dotpos = x.lastIndexOf(".");
+				if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length){
+					$("#inputEmail").next().show("slow");
+					return false;
+				}
+				$("#inputEmail").next().hide("slow");
+				return true;
+			}
+			
+			$(document).ready(function(){
+				displayHeader("");
+				displayFooter("");
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="page-wrapper">
+			<div class="content-wrapper">
+				<div id="page-header" class="row-fluid">
+					<div class="span12 hero-unit black">
+						<h1>ACM Webmaster Position</h1>
+						<p>Want to help improve our website or are interested in web development? Consider applying for the webmaster position!</p>
+					</div>
+				</div>
+				
+				<div class="content-padded">
+					<div class="alert alert-info">
+						<p>As the webmaster of ACM, your duties include keeping our website up to date and adding additional features/pages. You should come to most of our meetings so you know what annoucements to add or what future events we will be having. You will be responsible for creating new pages to support future events (like this sign up page for the webmaster position). If time permits, we would also like to create a login feature on the website for members only. The current website uses html, css, javascript and php.</p>
+						<p>No experience is needed for this position, we are happy to train you! We also understand how busy you guys are during the semester so we don't expect you guys to spend too much time on the website (unless you enjoy it!). At the very least, just keep the website updated after each meeting.</p>
+						<p>Why be the webmaster of ACM?</p>
+						<ol>
+							<li>You will be in charge of making our website better</li>
+							<li>You can learn about web development</li>
+							<li>You can put this on your resume</li>
+							<li>You will have your own section in the members page as the webmaster (next to all the officers)</li>
+						</ol>
+					</div>
+					<div class="signup-box well">
+						<form class="form-horizontal" action="php/webmaster.php" method="post" onsubmit="return validateForm()">
+							<legend>Sign Up</legend>
+							<div class="control-group">
+								<label class="control-label" for="inputFirst">First Name:</label>
+								<div class="controls">
+									<input type="text" id="inputFirst" name="inputFirst" placeholder="Bill" />
+									<span class="label label-important" style="display: none;">Please enter your first name</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="inputLast">Last Name:</label>
+								<div class="controls">
+									<input type="text" id="inputLast" name="inputLast" placeholder="Gates" />
+									<span class="label label-important" style="display: none;">Please enter your last name</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="inputEmail">Email:</label>
+								<div class="controls">
+									<input type="text" id="inputEmail" name="inputEmail" placeholder="bill.gates@microsoft.com" />
+									<span class="label label-important" style="display: none;">Please enter a valid email</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="inputMajor">Major:</label>
+								<div class="controls">
+									<input type="text" id="inputMajor" name="inputMajor" placeholder="Computer Science and Engineering" />
+									<span class="label label-important" style="display: none;">Please enter your major</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="inputYear">Year:</label>
+								<div class="controls">
+									<select id="inputYear" name="inputYear">
+										<option value="Freshman">Freshman</option>
+										<option value="Sophomore">Sophomore</option>
+										<option value="Junior">Junior</option>
+										<option value="Senior">Senior</option>
+										<option value="Graduate">Graduate</option>
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="inputYear">Why should we pick you?</label>
+								<div class="controls">
+									<textarea id="inputPick" name="inputPick" rows="5" cols="20"></textarea>
+									<span class="label label-important" style="display: none;">Please answer the question!</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls">
+									<button type="submit" class="btn btn-primary">Sign Up</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<footer></footer>
+		</div>
+	</body>
+</html>

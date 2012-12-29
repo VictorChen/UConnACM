@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>UCONN ACM Programming Competition</title>
+		<meta charset="UTF-8">
+		<meta name="robots" content="noindex">
+		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+		<link rel="stylesheet" href="css/signup.css" type="text/css" />
+		<link rel="shortcut icon" href="img/icon.ico">
+		<script src="js/lib/jquery.js"></script>
+		<script src="js/lib/bootstrap.min.js"></script>
+		<script src="js/header.js"></script>
+		<script src="js/footer.js"></script>
+		<script src="js/googleanalytics.js"></script>
+		<script type="text/javascript">
+			function validateForm(){
+				var isValid = true;
+				$("input").each(function(){
+					if ($(this).attr("id") === "inputEmail"){
+						if (!validateEmail()){
+							isValid = false;
+						}
+					}else{
+						if ($.trim($(this).val()).length == 0){
+							$(this).next().show("slow");
+							isValid = false;
+						}else{
+							$(this).next().hide("slow");
+						}
+					}
+				});
+				return isValid;
+			}
+			
+			function validateEmail(){
+				var x = $("#inputEmail").val();
+				var atpos = x.indexOf("@");
+				var dotpos = x.lastIndexOf(".");
+				if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length){
+					$("#inputEmail").next().show("slow");
+					return false;
+				}
+				$("#inputEmail").next().hide("slow");
+				return true;
+			}
+			
+			$(document).ready(function(){
+				displayHeader("");
+				displayFooter("");
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="page-wrapper">
+			<div class="content-wrapper">
+				<div id="page-header" class="row-fluid">
+					<div class="span12 hero-unit black">
+						<h1>ACM Programming Competition</h1>
+						<p>2012 ACM-ICPC North American Qualification Contest</p>
+					</div>
+				</div>
+				
+				<div class="content-padded">
+					<div class="alert alert-info">
+						<p>During the ACM programming competition, you will be given a set of problems and your job is to write code to solve them. Once you think your code is correct, you submit it to the website that will be given during the day of the competition. The website will run multiple test cases against your code to determine the correctness and the elapsed time. Even if your code is correct, the website will not accept it if it took too long to run. At the end of the event, the first 3 people who solved the most problems will be declared the winners.</p>
+						<p>For more information, please see</p>
+						<ul>
+							<li><a href="http://dna.engr.uconn.edu/~acm/" target="_blank">http://dna.engr.uconn.edu/~acm/</a></li>
+							<li><a href="http://cs.baylor.edu/~hamerly/icpc/qualifier_2012/" target="_blank">http://cs.baylor.edu/~hamerly/icpc/qualifier_2012/</a></li>
+						</ul>
+						<p>You can also contact Professor <a href="http://www.engr.uconn.edu/~ion/"  target="_blank">Ion Mandoiu</a> for details since he is in charge of this event.</p>
+					</div>
+					<div class="signup-box well">
+						<form class="form-horizontal" action="php/competition.php" method="post" onsubmit="return validateForm()">
+							<legend>Sign Up</legend>
+							<div class="control-group">
+								<label class="control-label" for="inputFirst">First Name:</label>
+								<div class="controls">
+									<input type="text" id="inputFirst" name="inputFirst" placeholder="Bill" />
+									<span class="label label-important" style="display: none;">Please enter your first name</span>
+								</div>
+								
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="inputLast">Last Name:</label>
+								<div class="controls">
+									<input type="text" id="inputLast" name="inputLast" placeholder="Gates" />
+									<span class="label label-important" style="display: none;">Please enter your last name</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="inputEmail">Email:</label>
+								<div class="controls">
+									<input type="text" id="inputEmail" name="inputEmail" placeholder="bill.gates@microsoft.com" />
+									<span class="label label-important" style="display: none;">Please enter a valid email</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls">
+									<button type="submit" class="btn btn-primary">Register</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<footer></footer>
+		</div>
+	</body>
+</html>

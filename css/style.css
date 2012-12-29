@@ -1,0 +1,240 @@
+/* Custom Scrollbar CSS */
+::-webkit-scrollbar {
+	width: 12px;
+}
+ 
+::-webkit-scrollbar-track-piece {
+	background-color: #151716;
+
+}
+ 
+::-webkit-scrollbar-thumb{
+	background-color: rgba(0, 0, 255, 0.41);
+	-webkit-border-radius: 10px;
+	border: 1px solid black;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+	background-color: rgba(0, 0, 255, 1);
+}
+
+/*
+ * Custom CSS
+ *
+ */
+ html, body{
+  height: 100%;
+ }
+ 
+ body{
+  overflow-y: scroll;
+ }
+ 
+textarea{ 
+  resize: none;
+ }
+ 
+ ul, ol{
+	margin-left: 50px;
+ }
+
+ .red-important{
+  color: red;
+  font-weight: bolder;
+ }
+ 
+ .navbar form.navbar-search .btn{
+  position: relative;
+  top: -4px;
+}
+
+.navbar a.brand span.brand-name{
+  position: relative;
+  top: 3px;
+}
+
+.navbar a.brand span.brand-name:hover{
+  color: white;
+}
+
+.navbar form.navbar-search span#invalid-login button.close{
+  float: none;
+}
+
+#myCarousel img{
+  width: 800px;
+  height: 300px;
+}
+
+.page-wrapper{
+  min-height: 100%;
+  position:relative;
+}
+
+footer{
+  height: 100px;
+  background-color: black;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+footer div{
+  padding: 15px;
+}
+
+footer div a img{
+  position: relative;
+  top: 5px;
+}
+
+footer div span.footer-info{
+  float: right;
+}
+
+.content-wrapper{
+  padding-bottom: 100px;
+}
+
+div#join-us{
+  padding: 50px;
+}
+
+.well .separate-bar{
+  color: black;
+  float: right;
+}
+
+.separate-bar{
+  color: white;
+}
+
+div#page-header div{
+  border-radius: 0;
+  color: white;
+}
+
+span.event-title{
+  float: left;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+span.event-date{
+  float: right;
+  font-weight: bold;
+  color: red;
+}
+
+span.event-location{
+  float: right;
+  color: green;
+}
+
+.event-details{
+  clear: both;
+  padding-top: 10px;
+}
+
+.blue{
+  background-color: #D5E1FF;
+}
+
+.green{
+  background-image: url("../img/green-pattern.png"); 
+  background-repeat: repeat;
+}
+
+.gray{
+  background-image: url("../img/gray-pattern.png"); 
+  background-repeat: repeat;
+}
+
+.gray2{
+  background-image: url("../img/gray-pattern2.png"); 
+  background-repeat: repeat;
+}
+
+.black{
+  background-image: url("../img/black-pattern.gif"); 
+  background-repeat: repeat;
+}
+
+div.members-officer p{
+  margin: 0;
+}
+
+div.member-description{
+  padding: 5px;
+  margin-top: 5px;
+  background-color: #525252;
+  color: white;
+  border-radius: 5px;
+  height: 70px;
+}
+
+div.members-officer h2{
+  color: #257CCC;
+}
+
+.content-padded{
+	padding: 0 15px;
+}
+
+#announcements .announcements-date{
+  float: right;
+}
+
+#announcements div.accordion-heading{
+  background-image: url("../img/speaker-grey.png");
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+
+#announcements div.accordion-heading:hover{
+  background-color: #C4D8EB;
+  background-image: url("../img/speaker-grey.png");
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+
+#announcements a.accordion-toggle{
+	padding-left: 30px;
+}
+
+table.tablesorter tr th{
+  background-image: url("../img/updown.png");
+  background-repeat: no-repeat;
+  background-position: center right;
+}
+
+tr th{
+  background-color: #E9E9E9;
+}
+
+tr th:hover{
+  cursor: pointer;
+  background-color: #C4D8EB;
+}
+
+table.tablesorter tr th.headerSortUp{
+  background-image: url("../img/up.png");
+  background-repeat: no-repeat;
+  background-position: center right;  
+}
+
+table.tablesorter tr th.headerSortDown{
+  background-image: url("../img/down.png");
+  background-repeat: no-repeat;
+  background-position: center right;  
+}
+
+.acm-competition .competition-title{
+  font-size: 18px;
+}
+
+.acm-competition h2{
+  color: #257CCC;
+}

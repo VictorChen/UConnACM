@@ -1,0 +1,30 @@
+#pacman-menu{
+	width: auto;
+	float: left;
+	font-size: 16px;
+}
+
+#pacman-menu li{
+	margin: 3px;
+}
+
+#pacman-menu li a{
+	text-align: center;
+	border: 1px solid black;
+	padding: 10px;
+	border-radius: 15px;
+}
+
+.menuItem{
+	font-size: 20px;
+	line-height: normal;
+}
+
+.menuItem li{
+	line-height: normal;
+}
+
+.center{
+	margin: 10px auto;
+	display: block;
+}
