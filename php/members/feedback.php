@@ -32,17 +32,17 @@ if (!checkLoggedIn()) {
                 if ($.trim(feedback).length == 0){
                     $("#success-info").slideUp();
                     $("#error-info").slideDown();
-                    return false;
+                }else{
+                    $.ajax({
+                        type: "POST",
+                        url: "feedback_submit.php",
+                        data: {inputSuggestions: feedback}
+                    }).done(function() {
+                        $("#inputSuggestions").val('');
+                        $("#error-info").slideUp();
+                        $("#success-info").slideDown();
+                    });
                 }
-                $.ajax({
-                    type: "POST",
-                    url: "feedback_submit.php",
-                    data: {inputSuggestions: feedback}
-                }).done(function() {
-                    $("#inputSuggestions").val('');
-                    $("#error-info").slideUp();
-                    $("#success-info").slideDown();
-                });
             }
 
             $(function(){

@@ -13,12 +13,5 @@
 		fwrite($fh, $line);
 		
 		fclose($fh);
-
-		$title = "Join ACM";
-		$msg = "Success! Thanks for joining and welcome to ACM!";
-		header('Location: http://acm.uconn.edu/php/signup_confirm.php?type=success&msg=' . urlencode($msg) . "&title=" . urlencode($title));
-	}else{
-		$msg = "Error! Please fill in all the fields";
-		header('Location: http://acm.uconn.edu/php/signup_confirm.php?type=error&msg=' . urlencode($msg));
 	}
 ?>
