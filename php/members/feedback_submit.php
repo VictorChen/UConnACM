@@ -10,9 +10,5 @@
 
 		fputcsv($fh, $line);
 		fclose($fh);
-
-		echo "success";
-	}else{
-		echo "empty suggestion";
 	}
 ?>

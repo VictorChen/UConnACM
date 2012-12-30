@@ -38,7 +38,7 @@ if (!checkLoggedIn()) {
                     type: "POST",
                     url: "feedback_submit.php",
                     data: {inputSuggestions: feedback}
-                }).done(function(msg) {
+                }).done(function() {
                     $("#inputSuggestions").val('');
                     $("#error-info").slideUp();
                     $("#success-info").slideDown();
