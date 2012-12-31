@@ -21,8 +21,11 @@ if ($account === FALSE) {
     exit();
 }
 
+// These fields are mandatory
 echo '{"success":true,"email":"' . $account['email'] . '","firstName":"' . $account['firstName'] . '","lastName":"' . $account['lastName'] . '","admin":"';
 if ($account['authLevel'] == 1) echo 'true';
-echo '"}';
+
+// The remaining fields are optional ones but may cause javascript errors if they aren't given
+echo '","major":"' . $account['major'] . '","year":"' . $account['year'] . '","aboutMe":"' . $account['aboutMe'] . '"}';
 
 ?>

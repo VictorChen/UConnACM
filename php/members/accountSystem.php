@@ -7,6 +7,9 @@
  *  'authLevel' (1 for admin, 0 for normal, can be expanded to more levels if needed)
  *  'firstName'
  *  'lastName'
+ *  'major'
+ *  'year'
+ *  'aboutMe'
  */
 
 // Add code to make absolutely sure login data is limited to acm domain
@@ -167,7 +170,7 @@ function hashPassword($pass, $salt) {
     return crypt($pass, $algorithmHeader . $salt);
 }
 
-// Makes sure all indexes in an associateively indexed array exist and are not empty
+// Makes sure all indexes in an associateively indexed array exist
 function validateAccountData($accountData) {
     if (!isset($accountData['email']))        return FALSE;
     if (!isset($accountData['password']))     return FALSE;
@@ -175,30 +178,49 @@ function validateAccountData($accountData) {
     if (!isset($accountData['authLevel']))    return FALSE;
     if (!isset($accountData['firstName']))    return FALSE;
     if (!isset($accountData['lastName']))     return FALSE;
+    if (!isset($accountData['major']))        return FALSE;
+    if (!isset($accountData['year']))         return FALSE;
+    if (!isset($accountData['aboutMe']))      return FALSE;
     return TRUE;
 }
 
 // Converts a numerically indexed account data array to a associatively indexed one
 function associateAccountData($accountData) {
     $result = array();
+    
+    // Mandatory Fields
     $result['email'] = $accountData[0];
     $result['password'] = $accountData[1];
     $result['salt'] = $accountData[2];
     $result['authLevel'] = $accountData[3];
     $result['firstName'] = $accountData[4];
     $result['lastName'] = $accountData[5];
+    
+    // Optional Fields
+    $result['major'] = $accountData[6];
+    $result['year'] = $accountData[7];
+    $result['aboutMe'] = $accountData[8];
+    
     return $result;
 }
 
 // Converts a associatively indexed account data array to a numerically indexed one
 function dissociateAccountData($accountData) {
     $result = array();
+    
+    // Mandatory Fields
     $result[0] = $accountData['email'];
     $result[1] = $accountData['password'];
     $result[2] = $accountData['salt'];
     $result[3] = $accountData['authLevel'];
     $result[4] = $accountData['firstName'];
     $result[5] = $accountData['lastName'];
+    
+    // Optional Fields
+    $result[6] = $accountData['major'];
+    $result[7] = $accountData['year'];
+    $result[8] = $accountData['aboutMe'];
+    
     return $result;
 }
 

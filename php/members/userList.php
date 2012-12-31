@@ -5,6 +5,7 @@ require_once('accountSystem.php');
 // Redirect to login page if not logged in
 if (!checkLoggedIn()) {
     header( 'Location: http://acm.uconn.edu/php/members/login.php' );
+    exit();
 }
 
 ?>

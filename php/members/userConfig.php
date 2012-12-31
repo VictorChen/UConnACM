@@ -1,4 +1,5 @@
 <?php
+
 // Load the account system
 require_once('accountSystem.php');
 
@@ -47,6 +48,12 @@ if (getAccountData($_POST['email']) !== FALSE) {
     }
 }
 
+// Set optional fields if they aren't already
+// (jQuery likes to 'optimize' away blank fields sometimes)
+if (!isset($_POST['major'])) $_POST['major'] = '';
+if (!isset($_POST['year'])) $_POST['year'] = '';
+if (!isset($_POST['aboutMe'])) $_POST['aboutMe'] = '';
+
 // Create or modify the account
 if (isset($_POST['oldEmail']) && $_POST['oldEmail'] != '') {
     $userData = getAccountData($_POST['oldEmail']);
@@ -56,6 +63,9 @@ if (!isset($userData) || $userData === FALSE) $userData = array();
 $userData['email'] = $_POST['email'];
 $userData['firstName'] = $_POST['firstName'];
 $userData['lastName'] = $_POST['lastName'];
+$userData['major'] = $_POST['major'];
+$userData['year'] = $_POST['year'];
+$userData['aboutMe'] = $_POST['aboutMe'];
 if ($_SESSION['account']['authLevel'] == 1){
     if (isset($_POST['admin']) && $_POST['admin'] == 'true') $userData['authLevel'] = '1';
     else $userData['authLevel'] = '0';
