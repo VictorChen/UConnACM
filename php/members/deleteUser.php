@@ -15,6 +15,12 @@ if (!isset($_GET) || !isset($_GET['hash'])) exit();
 $account = getAccountDataByHash($_GET['hash']);
 if ($account === FALSE) exit();
 
+// Make sure a user isn't trying to delete themself
+if ($_SESSION['account']['email'] == $account['email']) {
+    echo 'Denied';
+    exit();
+}
+
 deleteAccount($account['email']);
 
 ?>

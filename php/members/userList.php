@@ -28,45 +28,6 @@ if (!checkLoggedIn()) {
 		<script src="../../js/googleanalytics.js"></script>
         <script src="../../js/userConfig.js"></script>
         <script>
-        <?php if (checkAdmin()) { ?>
-            // Delete account functions
-            var currentAccountHash = "";
-            
-            function setCurrentAccount(accountHash) {
-                currentAccountHash = accountHash;
-            }
-            
-            function deleteCurrentAccount() {
-                $.get('deleteUser.php?hash=' + currentAccountHash, function() {
-                    document.location.reload(true);
-                });
-            }
-            
-            function loadAccountData(accountHash) {
-                document.getElementById('failureMessage').innerHTML = '';
-                $.getJSON('getAccountData.php?hash=' + accountHash, function(data) {
-                    if (data.success) {
-                        document.getElementById('oldEmail').value = data.email;
-                        document.getElementById('email').value = data.email;
-                        document.getElementById('pass').value = "XXXXXXXXXXXXXXXXXXXX";
-                        document.getElementById('firstName').value = data.firstName;
-                        document.getElementById('lastName').value = data.lastName;
-                        document.getElementById('admin').checked = data.admin;
-                    }
-                });
-            }
-            
-            function resetConfigForm() {
-                document.getElementById('failureMessage').innerHTML = '';
-                document.getElementById('oldEmail').value = "";
-                document.getElementById('email').value = "";
-                document.getElementById('pass').value = "";
-                document.getElementById('firstName').value = "";
-                document.getElementById('lastName').value = "";
-                document.getElementById('admin').checked = "";
-            }
-        <?php } ?>
-
         // JQuery procedures
         $(function(){
             displayHeader("../../",4);
@@ -86,55 +47,6 @@ if (!checkLoggedIn()) {
                         </div>
                         <div class="span10">
                             <?php if (checkAdmin()) { ?>
-                                <!-- Modal -->
-                                <div id="configModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="configModalLabel" aria-hidden="true">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                                        <h3 id="configModalLabel">User Configuration</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form class="form-horizontal" id="configForm">
-                                            <input type="hidden" id="oldEmail" name="oldEmail"/>
-                                            <div class="control-group">
-                                                <label class="control-label" for="email">Email:</label>
-                                                <div class="controls">
-                                                    <input type="text" id="email" name="email"/>
-                                                </div>
-                                            </div>
-                                            <div class="control-group">
-                                                <label class="control-label" for="pass">Password:</label>
-                                                <div class="controls">
-                                                    <input type="password" id="pass" name="pass" onclick="document.getElementById('pass').select()" onblur="passwordBlurCheck()" />
-                                                </div>
-                                            </div>
-                                            <div class="control-group">
-                                                <label class="control-label" for="firstName">First Name:</label>
-                                                <div class="controls">
-                                                    <input type="text" id="firstName" name="firstName" />
-                                                </div>
-                                            </div>
-                                            <div class="control-group">
-                                                <label class="control-label" for="lastName">Last Name:</label>
-                                                <div class="controls">
-                                                    <input type="text" id="lastName" name="lastName" />
-                                                </div>
-                                            </div>
-                                            <div class="control-group">
-                                                <label class="control-label" for="admin">Admin:</label>
-                                                <div class="controls">
-                                                    <input type="checkbox" id="admin" name="admin" value="true" />
-                                                </div>
-                                            </div>
-                                            <label id="failureMessage" style="color: red; font-weight: bold;"/>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                        <button class="btn btn-primary" onclick="trySubmitConfigForm('configForm', 'failureMessage')">Submit</button>
-                                    </div>
-                                </div>
-                                
-                                
                                 <div id="deleteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
@@ -174,8 +86,9 @@ if (!checkLoggedIn()) {
                                         <?php if (checkAdmin()) { ?>
                                             <th>Edit</th>
                                             <th>Delete</th>
-                                        <?php } ?>
+                                        <?php } else { ?>
                                         <th>Profile</th>
+                                        <?php } ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -197,8 +110,9 @@ if (!checkLoggedIn()) {
                                                         if ($account['email'] == $_SESSION['account']['email']) echo '<a class="btn btn-danger" href="#deleteSelfModal" data-toggle="modal">';
                                                         else echo '<a class="btn btn-danger" href="#deleteModal" onclick="setCurrentAccount(\'' . $entry . '\')" data-toggle="modal">';
                                                         echo 'Delete</a></td>';
+                                                    } else {
+                                                        echo '<td><a class="btn" href="#configModal" onclick="loadAccountData(\'' . $entry . '\', true)" data-toggle="modal">View Profile</a></td>';
                                                     }
-                                                    echo '<td><a class="btn" href="#">View Profile</a></td>';
                                                     echo '</tr>';
                                                 }
                                             }

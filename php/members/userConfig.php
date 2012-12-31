@@ -3,6 +3,19 @@
 // Load the account system
 require_once('accountSystem.php');
 
+// Make sure the user is authorized to make changes
+if (!checkAdmin()) {
+    if (isset($_POST['oldEmail']) && $_POST['oldEmail'] != '') {
+        if ($_SESSION['account']['email'] != $_POST['oldEmail']) {
+            echo 'Not Authorized';
+            exit();
+        }
+    } else {
+        echo 'Not Authorized';
+        exit();
+    }
+}
+
 // Do some error checking
 if (!isset($_POST)) {
     echo 'No form data';
@@ -29,9 +42,15 @@ if (!isset($_POST['lastName']) || $_POST['lastName'] == '') {
     exit();
 }
 
-// Make sure the admin isn't trying to strip their own rights
-if ((isset($_POST['oldEmail']) && $_POST['oldEmail'] != '') && $_POST['oldEmail'] == $_SESSION['account']['email'] && (!isset($_POST['admin']) || $_POST['admin'] != 'true')) {
+// Make sure an admin isn't trying to strip their own rights
+if (checkAdmin() && (isset($_POST['oldEmail']) && $_POST['oldEmail'] != '') && $_POST['oldEmail'] == $_SESSION['account']['email'] && (!isset($_POST['admin']) || $_POST['admin'] != 'true')) {
     echo "You can't remove admin privilages from your own account";
+    exit();
+}
+
+// Make sure a regular user isn't trying to give themselves admin privilages
+if (!checkAdmin() && isset($_POST['admin']) && $_POST['admin'] == 'true') {
+    echo "You can't give yourself admin privilages";
     exit();
 }
 
