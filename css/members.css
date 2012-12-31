@@ -37,6 +37,9 @@
 	margin: 20px;
 	font-size: 16px;
 	font-weight: bolder;
+}
+
+.transition{
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;
@@ -79,4 +82,26 @@
 
 #anything-category{
 	background: url('http://acm.uconn.edu/img/anything.jpg');
+}
+
+#category-title{
+	font-size: 20px;
+	float: right;
+}
+
+#category-list{
+	list-style-type: none;
+	margin: 0;
+}
+
+#category-list li{
+	padding: 15px;
+	border: 1px solid black;
+	margin-top: 15px;
+	border-radius: 10px;
+}
+
+#category-list li:hover{
+	background-color: #E8E8FF;
+	cursor: pointer;
 }

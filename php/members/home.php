@@ -27,8 +27,31 @@ if (!checkLoggedIn()) {
 		<script src="../../js/googleanalytics.js"></script>
         <script src="../../js/userConfig.js"></script>
         <script>
-            function test(){
-                alert("test");
+            function showCategoryList(category, categoryID){
+                $(".home-category").removeClass("transition");
+                $(".home-category").hide("slow");
+                $("#backbtn").show("slow");
+                var title = $("#"+categoryID).text();
+                $("#category-title").text(title).show("slow");
+
+                $.ajax({
+                    type: "POST",
+                    url: "retrieveCategoryPosts.php",
+                    data: {category: category}
+                }).done(function(results) {
+                    console.log(results);
+                    $("#category-list").append(results).show("slow");
+                });
+            }
+
+            function backToCategory(){
+                $("#backbtn").hide("slow");
+                $("#category-title").hide("slow");
+                $("#category-list").hide("slow").empty();
+                $(".home-category").show("slow");
+                setTimeout(function(){
+                    $(".home-category").addClass("transition"); // delay adding transition css until categories are shown
+                },1000);
             }
 
             $(function(){
@@ -47,14 +70,17 @@ if (!checkLoggedIn()) {
                             <?php include("quickLinks.php"); ?>
                         </div>
                         <div class="span8">
-                            <div onClick="test();" class="home-category" id="courses-category">Courses</div>
-                            <div class="home-category" id="textbooks-category">Textbooks</div>
-                            <div class="home-category" id="acm-category">ACM</div>
-                            <div class="home-category" id="programming-category">Programming</div>
-                            <div class="home-category" id="jobs-category">Jobs / Internships</div>
-                            <div class="home-category" id="introduce-category">Introduce Yourself</div>
-                            <div class="home-category" id="resources-category">Resources</div>
-                            <div class="home-category" id="anything-category">Anything</div>
+                            <button onClick="backToCategory();" id="backbtn" class="btn" style="display: none;"><i class="icon-arrow-left"></i> Back</button>
+                            <span id="category-title" style="display: none;"></span>
+                            <div onClick="showCategoryList('courses', 'courses-category');" class="home-category transition" id="courses-category">Courses</div>
+                            <div onClick="showCategoryList('textbooks', 'textbooks-category');" class="home-category transition" id="textbooks-category">Textbooks</div>
+                            <div onClick="showCategoryList('acm', 'acm-category');" class="home-category transition" id="acm-category">ACM</div>
+                            <div onClick="showCategoryList('programming', 'programming-category');" class="home-category transition" id="programming-category">Programming</div>
+                            <div onClick="showCategoryList('jobs', 'jobs-category');" class="home-category transition" id="jobs-category">Jobs / Internships</div>
+                            <div onClick="showCategoryList('introduce', 'introduce-category');" class="home-category transition" id="introduce-category">Introduce Yourself</div>
+                            <div onClick="showCategoryList('resources', 'resources-category');" class="home-category transition" id="resources-category">Resources</div>
+                            <div onClick="showCategoryList('anything', 'anything-category');" class="home-category transition" id="anything-category">Anything</div>
+                            <ul id="category-list" style="display: none;"></ul>
                         </div>
                         <div class="span2">
                             <span class="heading">Recently Posted:</span>
