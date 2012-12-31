@@ -4,3 +4,10 @@
     <li><a href="http://acm.uconn.edu/php/members/userList.php">Users</a></li>
     <li><a href="http://acm.uconn.edu/php/members/feedback.php">Feedback</a></li>
 </ul>
+
+<span class="heading">Test:</span>
+<ul class="nav nav-tabs nav-stacked">
+    <li><a href="#">test</a></li>
+    <li><a href="#">test</a></li>
+    <li><a href="#">test</a></li>
+</ul>

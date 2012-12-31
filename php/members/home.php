@@ -27,6 +27,10 @@ if (!checkLoggedIn()) {
 		<script src="../../js/googleanalytics.js"></script>
         <script src="../../js/userConfig.js"></script>
         <script>
+            function test(){
+                alert("test");
+            }
+
             $(function(){
                 displayHeader("../../",4);
                 displayFooter("../../");
@@ -42,7 +46,30 @@ if (!checkLoggedIn()) {
                         <div class="span2">
                             <?php include("quickLinks.php"); ?>
                         </div>
-                        <div class="span10 well">
+                        <div class="span8">
+                            <div onClick="test();" class="home-category">Courses</div>
+                            <div class="home-category">Textbooks</div>
+                            <div class="home-category">ACM</div>
+                            <div class="home-category">Programming</div>
+                            <div class="home-category">Jobs / Internships</div>
+                            <div class="home-category">Introduce Yourself</div>
+                            <div class="home-category">Resources</div>
+                            <div class="home-category">Anything</div>
+                        </div>
+                        <div class="span2">
+                            <span class="heading">Recently Posted:</span>
+                            <ul class="nav nav-tabs nav-stacked">
+                                <li><a href="#">test</a></li>
+                                <li><a href="#">test</a></li>
+                                <li><a href="#">test</a></li>
+                                <li><a href="#">test</a></li>
+                                <li><a href="#">testesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestt</a></li>
+                                <li><a href="#">test</a></li>
+                                <li><a href="#">test</a></li>
+                                <li><a href="#">test</a></li>
+                                <li><a href="#">test</a></li>
+                                <li><a href="#">test</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
