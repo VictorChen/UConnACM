@@ -20,6 +20,16 @@
 }
 
 /*
+ * Overwrite default bootstrap css
+ *
+ */
+.nav-tabs.nav-stacked > li > a {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/*
  * Custom CSS
  *
  */
