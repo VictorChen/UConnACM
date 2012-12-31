@@ -47,14 +47,14 @@ if (!checkLoggedIn()) {
                             <?php include("quickLinks.php"); ?>
                         </div>
                         <div class="span8">
-                            <div onClick="test();" class="home-category">Courses</div>
-                            <div class="home-category">Textbooks</div>
-                            <div class="home-category">ACM</div>
-                            <div class="home-category">Programming</div>
-                            <div class="home-category">Jobs / Internships</div>
-                            <div class="home-category">Introduce Yourself</div>
-                            <div class="home-category">Resources</div>
-                            <div class="home-category">Anything</div>
+                            <div onClick="test();" class="home-category" id="courses-category">Courses</div>
+                            <div class="home-category" id="textbooks-category">Textbooks</div>
+                            <div class="home-category" id="acm-category">ACM</div>
+                            <div class="home-category" id="programming-category">Programming</div>
+                            <div class="home-category" id="jobs-category">Jobs / Internships</div>
+                            <div class="home-category" id="introduce-category">Introduce Yourself</div>
+                            <div class="home-category" id="resources-category">Resources</div>
+                            <div class="home-category" id="anything-category">Anything</div>
                         </div>
                         <div class="span2">
                             <span class="heading">Recently Posted:</span>

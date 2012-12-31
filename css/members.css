@@ -48,3 +48,35 @@
 	cursor: pointer;
 	background-color: #FFFEF5;
 }
+
+#courses-category{
+	background: url('http://acm.uconn.edu/img/course.jpg');
+}
+
+#textbooks-category{
+	background: url('http://acm.uconn.edu/img/textbooks.jpg');
+}
+
+#acm-category{
+	background: url('http://acm.uconn.edu/img/acmlogo.jpg');
+}
+
+#programming-category{
+	background: url('http://acm.uconn.edu/img/programming.jpg');
+}
+
+#jobs-category{
+	background: url('http://acm.uconn.edu/img/jobs.jpg');
+}
+
+#introduce-category{
+	background: url('http://acm.uconn.edu/img/introduce.jpg');
+}
+
+#resources-category{
+	background: url('http://acm.uconn.edu/img/resources.jpg');
+}
+
+#anything-category{
+	background: url('http://acm.uconn.edu/img/anything.jpg');
+}
