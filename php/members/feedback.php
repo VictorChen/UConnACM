@@ -69,11 +69,8 @@ if (!checkLoggedIn()) {
                             </div>
 							<div class="signup-box well">
 								<legend>Feedback</legend>
-                                <div class="alert alert-info">
-                                    Let us know how we're doing! We're happy to take suggestions from our members to improve ACM. Remember, this is completely anonymous so say anything you want!
-                                </div>
 								<div class="control-group">
-									<label class="control-label" for="inputSuggestions">Leave us a feedback!</label>
+									<label class="control-label" for="inputSuggestions">Leave us a feedback! Let us know how we're doing! We're happy to take suggestions from our members to improve ACM. Remember, this is completely anonymous so say anything you want!</label>
 									<div class="controls">
 										<textarea id="inputSuggestions" name="inputSuggestions"></textarea>
 									</div>
