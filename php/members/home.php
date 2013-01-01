@@ -39,7 +39,6 @@ if (!checkLoggedIn()) {
                     url: "retrieveCategoryPosts.php",
                     data: {category: category}
                 }).done(function(results) {
-                    console.log(results);
                     $("#category-list").append(results).show("slow");
                 });
             }

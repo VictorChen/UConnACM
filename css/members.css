@@ -105,3 +105,16 @@
 	background-color: #E8E8FF;
 	cursor: pointer;
 }
+
+#configModal{
+	width: 800px;
+	margin-left: -400px;
+}
+
+#configModal .control-label{
+	width: auto;
+}
+
+#configModal .controls{
+	margin-left: 80px;
+}
