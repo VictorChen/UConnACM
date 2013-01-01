@@ -6,6 +6,7 @@
     </div>
     <div class="modal-body">
         <div class="row-fluid">
+            <div id="failureMessage" class="alert alert-error" style="display: none;"></div>
             <form class="form-horizontal" id="configForm">
                 <div class="span6">
                     <input type="hidden" id="oldEmail" name="oldEmail"/>
@@ -60,12 +61,11 @@
                         </div>
                     </div>
                 </div>
-                <label id="failureMessage" style="color: red; font-weight: bold;"></label>
             </form>
         </div>
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-        <button id="configSubmitButton" class="btn btn-primary" onclick="trySubmitConfigForm('configForm', 'failureMessage')">Submit</button>
+        <button id="configSubmitButton" class="btn btn-primary" onclick="trySubmitConfigForm()">Submit</button>
     </div>
 </div>

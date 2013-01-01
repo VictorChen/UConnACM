@@ -17,20 +17,21 @@ function passwordBlurCheck() {
     if (elem.val() == '' && $('#oldEmail').val() != '') elem.val('XXXXXXXXXXXXXXXXXXXX');
 }
 
-function trySubmitConfigForm(formID, msgID) {
+function trySubmitConfigForm() {
     // Do all validation server side since checking for email matches needs to be done there anyway
-    $.post('userConfig.php', $('#' + formID).serialize(), function(data) {
+    $.post('userConfig.php', $('#configForm').serialize(), function(data) {
         if (data == 'SUCCESS') {
             location.reload(true);
         } else if (data == '') {
-            $('#' + msgID).html('Server Side Error');
+            $('#failureMessage').html('Server Side Error').slideDown("slow");
         } else {
-            $('#' + msgID).html(data);
+            $('#failureMessage').html(data).slideDown("slow");
         }
     });
 }
 
 function loadAccountData(accountHash, readonly) {
+    $('#failureMessage').hide();
     // Get the server request started and do the rest while waiting on it
     $.getJSON('getAccountData.php?hash=' + accountHash, function(data) {
         if (data.success) {
@@ -45,7 +46,6 @@ function loadAccountData(accountHash, readonly) {
             $('#aboutMe').val(data.aboutMe);
         }
     });
-    $('#failureMessage').html('');
     
     // Default readonly to false
     readonly = typeof readonly !== 'undefined' ? readonly : false;
@@ -53,7 +53,6 @@ function loadAccountData(accountHash, readonly) {
 }
 
 function resetConfigForm() {
-    $('#failureMessage').html('');
     $('#oldEmail').val('');
     $('#email').val('');
     $('#pass').val('');
@@ -63,6 +62,7 @@ function resetConfigForm() {
     $('#major').val('');
     $('#year').val('');
     $('#aboutMe').val('');
+    $('#failureMessage').hide();
 }
 
 function setConfigFormReadOnly(readonly) {
