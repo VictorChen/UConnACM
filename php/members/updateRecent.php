@@ -16,6 +16,9 @@
     // Sort array by modified time
     krsort($files);
 
+    // Show Title
+    echo "<li><a class='heading'>Recently Posted</a></li>";
+
     // List the files based on their modified time
     foreach($files as $file){
         $post = openFile("recent", $file);

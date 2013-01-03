@@ -232,7 +232,6 @@ if (!checkLoggedIn()) {
                             <button onClick="createMessage();" id="chat-post-btn" class="btn btn-primary" style="display: none; float: right;"><i class="icon-pencil icon-white"></i> Post</button>
                         </div>
                         <div class="span2">
-                            <span class="heading">Recently Posted:</span>
                             <ul id="recently-posted" class="nav nav-tabs nav-stacked"></ul>
                         </div>
                     </div>

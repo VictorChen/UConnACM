@@ -1,6 +1,11 @@
 .welcome{
 	padding: 10px;
+	background-color: #fafafa;
 	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#F2F2F2));
+	background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
+	background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
+	background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);
+	background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
 	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
 	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
@@ -180,4 +185,18 @@
 
 #topicModal input, #topicModal textarea{
 	width: 450px;
+}
+
+.heading{
+	background-color: #fafafa;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#F2F2F2));
+	background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
+	background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
+	background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);
+	background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
+	color: black;
+}
+
+.heading:hover{
+	color: black;
 }
