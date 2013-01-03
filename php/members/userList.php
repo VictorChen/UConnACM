@@ -75,7 +75,9 @@ if (!checkLoggedIn()) {
                                     </div>
                                 </div>
                             <?php } ?>
-
+                            <?php if (checkAdmin()) { ?>
+                                <a href="#configModal" onclick="resetConfigForm()" class="btn" data-toggle="modal">Create New User</a>
+                            <?php } ?>
                             <table id="accountTable" class="table table-bordered table-striped tablesorter">
                                 <thead>
                                     <tr>
@@ -121,9 +123,6 @@ if (!checkLoggedIn()) {
                                     ?>
                                 </tbody>
                             </table>
-                            <?php if (checkAdmin()) { ?>
-                            <a href="#configModal" onclick="resetConfigForm()" class="btn" data-toggle="modal">Create New User</a>
-                            <?php } ?>
                         </div>
                     </div>
                 </div>
