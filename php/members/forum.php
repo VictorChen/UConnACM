@@ -74,6 +74,7 @@ if (!checkLoggedIn()) {
                 $("#topicSuccessMessage").slideUp("slow").empty();
                 $("#topicFailureMessage").slideUp("slow").empty();
                 $("#backbtn2").hide("slow");
+                $("#delete-topic-btn").hide("slow");
                 $("#chat-title").hide("slow");
                 $("#chat-content").hide("slow");
                 $("#chat-box").hide("slow").empty();
@@ -92,6 +93,7 @@ if (!checkLoggedIn()) {
                 $("#create-post").hide("slow");
                 $("#category-list").hide("slow").empty();
                 $("#backbtn2").show("slow");
+                $("#delete-topic-btn").show("slow");
                 $("#chat-area").show("slow");
                 $("#chat-post-btn").show("slow");
                 currentFilename = $(this).find(".post-filename").text();
@@ -180,6 +182,7 @@ if (!checkLoggedIn()) {
 
                 $("#category-title").text(currentCategory[1]).show("slow");
                 $("#backbtn2").show("slow");
+                $("#delete-topic-btn").show("slow");
                 $("#chat-area").show("slow");
                 $("#chat-post-btn").show("slow");
 
@@ -248,6 +251,9 @@ if (!checkLoggedIn()) {
                             <ul id="category-list" style="display: none;"></ul>
 
                             <button onClick="backToCategoryList();" id="backbtn2" class="btn" style="display: none;"><i class="icon-arrow-left"></i> Back</button>
+                            <?php if (checkAdmin()) { ?>
+                                <button onClick='deleteTopic();' id="delete-topic-btn" class="btn btn-danger" style="display: none;">Delete Topic</button>
+                            <?php } ?>
                             <div style="display: none;" id="chat-title"></div>
                             <div style="display: none;" id="chat-content"></div>
                             <div style="display: none;" id="chat-box"></div>

@@ -37,7 +37,7 @@
             echo '</span>';
             echo '<span class="post-author">By: <a href="#configModal" onclick="loadAccountData(\'' . hashEmail($post->email) . '\', true)" data-toggle="modal">'.$post->first.' '.$post->last.'</a></span>';
             echo '<span class="post-filename">'.$file.'</span>';
-            if (checkAdmin()) echo '<br><button class="btn btn-danger post-delete-btn">Delete</button>';
+            if (checkAdmin()) echo '<br><button class="btn btn-danger post-delete-btn">Delete Topic</button>';
         echo '</li>';
     }
 ?>
