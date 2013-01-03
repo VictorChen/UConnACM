@@ -1,5 +1,5 @@
 <?php
-// Load the account system
+require_once('categorySystem.php');
 require_once('accountSystem.php');
 
 // Redirect to login page if not logged in
@@ -27,35 +27,174 @@ if (!checkLoggedIn()) {
 		<script src="../../js/googleanalytics.js"></script>
         <script src="../../js/userConfig.js"></script>
         <script>
-            function showCategoryList(category, categoryID){
-                $(".home-category").removeClass("transition");
-                $(".home-category").hide("slow");
-                $("#backbtn").show("slow");
-                var title = $("#"+categoryID).text();
-                $("#category-title").text(title).show("slow");
+            var currentCategory;
+            var currentFilename;
 
+            function transitionToList(){
+                var title = $(this).text();
+                var category = $(this).attr("value");
+                $("#topicSuccessMessage").slideUp("slow").empty();
+                $(".home-category").hide("slow");
+                $("#backbtn1").show("slow");
+                $("#create-post").show("slow");
+                $("#category-title").text(title).show("slow");
+                showCategoryList(category);
+                currentCategory = [category, title];
+            }
+
+            function showCategoryList(category){
                 $.ajax({
                     type: "POST",
                     url: "retrieveCategoryPosts.php",
                     data: {category: category}
                 }).done(function(results) {
                     $("#category-list").append(results).show("slow");
+                    $('.post-author').click(function(event){
+                        event.stopImmediatePropagation();   // Stop chat from showing when user is clicked
+                        $("#configModal").modal('show');    // Show the user's profile
+                    });
+                    $(".category-post").click(transitionToChat);
                 });
             }
 
             function backToCategory(){
-                $("#backbtn").hide("slow");
+                $("#topicSuccessMessage").slideUp("slow").empty();
+                $("#backbtn1").hide("slow");
+                $("#create-post").hide("slow");
                 $("#category-title").hide("slow");
                 $("#category-list").hide("slow").empty();
                 $(".home-category").show("slow");
-                setTimeout(function(){
-                    $(".home-category").addClass("transition"); // delay adding transition css until categories are shown
-                },1000);
+            }
+
+            function backToCategoryList(){
+                $("#topicSuccessMessage").slideUp("slow").empty();
+                $("#messageFailure").slideUp("slow").empty();
+                $("#backbtn2").hide("slow");
+                $("#chat-title").hide("slow");
+                $("#chat-content").hide("slow");
+                $("#chat-box").hide("slow").empty();
+                $("#chat-area").hide("slow");
+                $("#chat-post-btn").hide("slow");
+                $("#backbtn1").show("slow");
+                $("#create-post").show("slow");
+                $("#category-title").text(currentCategory[1]).show("slow");
+                showCategoryList(currentCategory[0]);
+            }
+
+            function transitionToChat(){
+                $("#topicSuccessMessage").slideUp("slow").empty();
+                $("#backbtn1").hide("slow");
+                $("#create-post").hide("slow");
+                $("#category-list").hide("slow").empty();
+                $("#backbtn2").show("slow");
+                $("#chat-area").show("slow");
+                $("#chat-post-btn").show("slow");
+                currentFilename = $(this).find(".post-filename").text();
+                showChat();
+            }
+
+            function showChat(){
+                $.ajax({
+                    type: "POST",
+                    dataType: 'json',
+                    url: "showChat.php",
+                    data: {filename: currentFilename, category: currentCategory[0]}
+                }).done(function(results){
+                    if (results.error){
+                        $("#messageFailure").empty().append(results.error).slideDown("slow");
+                    }else{
+                        $("#chat-title").empty().append(results.title).show("slow");
+                        $("#chat-content").empty().append(results.content).show("slow");
+                        $("#chat-box").empty().append(results.messages).show("slow");
+                        $("#chat-box").scrollTop($("#chat-box")[0].scrollHeight);
+                    }
+                });
+            }
+
+            function createTopic(){
+                $.ajax({
+                    type: "POST",
+                    url: "createTopic.php",
+                    data: {title: $("#topicTitle").val(), content: $("#topicContent").val(), category: currentCategory[0]}
+                }).done(function(results) {
+                    if (results === "success"){
+                        $("#topicSuccessMessage").append("Success! Topic has been posted").slideDown("slow");
+                        $('#topicModal').modal('hide')
+                        $("#category-list").empty();
+                        showCategoryList(currentCategory[0]);
+                        updateRecent();
+                    }else{
+                        $("#topicFailureMessage").empty().append(results).slideDown("slow");
+                    }
+                });
+            }
+
+            function createMessage(){
+                $.ajax({
+                    type: "POST",
+                    url: "createMessage.php",
+                    data: {filename: currentFilename, message: $("#chat-area").val(), category: currentCategory[0]}
+                }).done(function(results) {
+                    if (results === "success"){
+                        $("#messageFailure").slideUp("slow").empty();
+                        $("#chat-box").empty();
+                        $("#chat-area").val('');
+                        showChat();
+                        updateRecent();
+                    }else{
+                        $("#messageFailure").append(results).slideDown("slow");
+                    }
+                });
+            }
+
+            function updateRecent(){
+                $.ajax({
+                    type: "POST",
+                    url: "updateRecent.php"
+                }).done(function(results){
+                    $("#recently-posted").empty().append(results);
+                    $(".recent-post").click(showChatFromRecent);
+                });
+            }
+
+            function showChatFromRecent(){
+                var category = $(this).next().next().text();
+                $(".home-category").each(function(){
+                    if ($(this).attr("value") === category){
+                        currentCategory = [category, $(this).text()];
+                    }
+                });
+                currentFilename = $(this).next().text();
+                $(".home-category").hide("slow");
+                $("#topicSuccessMessage").slideUp("slow").empty();
+                $("#backbtn1").hide("slow");
+                $("#create-post").hide("slow");
+                $("#category-list").hide("slow").empty();
+                $("#messageFailure").slideUp("slow").empty();
+
+                $("#category-title").text(currentCategory[1]).show("slow");
+                $("#backbtn2").show("slow");
+                $("#chat-area").show("slow");
+                $("#chat-post-btn").show("slow");
+
+                showChat();
             }
 
             $(function(){
                 displayHeader("../../",4);
                 displayFooter("../../");
+
+                updateRecent();
+                
+                $(".home-category").click(transitionToList);
+
+                // Clear topic form on exit
+                $('#topicModal').on('hidden',function(){
+                    $("#topicFailureMessage").empty().hide();
+                    $("#topicTitle").val('');
+                    $("#topicContent").val('');
+                    
+                });
             });
         </script>
     </head>
@@ -68,38 +207,70 @@ if (!checkLoggedIn()) {
                         <div class="span2">
                             <?php include("quickLinks.php"); ?>
                         </div>
-                        <div class="span8">
-                            <button onClick="backToCategory();" id="backbtn" class="btn" style="display: none;"><i class="icon-arrow-left"></i> Back</button>
+                        <div class="span8" style="margin-bottom: 20px;">
+                            <div class="home-category" value="courses" id="courses-category">Courses</div>
+                            <div class="home-category" value="textbooks" id="textbooks-category">Textbooks</div>
+                            <div class="home-category" value="acm" id="acm-category">ACM</div>
+                            <div class="home-category" value="programming" id="programming-category">Programming</div>
+                            <div class="home-category" value="jobs" id="jobs-category">Jobs / Internships</div>
+                            <div class="home-category" value="introduce" id="introduce-category">Introduce Yourself</div>
+                            <div class="home-category" value="resources" id="resources-category">Resources</div>
+                            <div class="home-category" value="anything" id="anything-category">Anything</div>
+                            
+                            <div id="topicSuccessMessage" class="alert alert-success" style="display: none;"></div>
+                            <button onClick="backToCategory();" id="backbtn1" class="btn" style="display: none;"><i class="icon-arrow-left"></i> Back</button>
+                            <a id="create-post" class="btn btn-primary" href="#topicModal" data-toggle="modal" style="display: none;"><i class="icon-plus icon-white"></i> Create Topic</a>
                             <span id="category-title" style="display: none;"></span>
-                            <div onClick="showCategoryList('courses', 'courses-category');" class="home-category transition" id="courses-category">Courses</div>
-                            <div onClick="showCategoryList('textbooks', 'textbooks-category');" class="home-category transition" id="textbooks-category">Textbooks</div>
-                            <div onClick="showCategoryList('acm', 'acm-category');" class="home-category transition" id="acm-category">ACM</div>
-                            <div onClick="showCategoryList('programming', 'programming-category');" class="home-category transition" id="programming-category">Programming</div>
-                            <div onClick="showCategoryList('jobs', 'jobs-category');" class="home-category transition" id="jobs-category">Jobs / Internships</div>
-                            <div onClick="showCategoryList('introduce', 'introduce-category');" class="home-category transition" id="introduce-category">Introduce Yourself</div>
-                            <div onClick="showCategoryList('resources', 'resources-category');" class="home-category transition" id="resources-category">Resources</div>
-                            <div onClick="showCategoryList('anything', 'anything-category');" class="home-category transition" id="anything-category">Anything</div>
                             <ul id="category-list" style="display: none;"></ul>
+
+                            <div id="messageFailure" class="alert alert-error" style="display: none;"></div>
+                            <button onClick="backToCategoryList();" id="backbtn2" class="btn" style="display: none;"><i class="icon-arrow-left"></i> Back</button>
+                            <div style="display: none;" id="chat-title"></div>
+                            <div style="display: none;" id="chat-content"></div>
+                            <div style="display: none;" id="chat-box"></div>
+                            <textarea style="display: none;" type="text" id="chat-area"></textarea>
+                            <button onClick="createMessage();" id="chat-post-btn" class="btn btn-primary" style="display: none; float: right;"><i class="icon-pencil icon-white"></i> Post</button>
                         </div>
                         <div class="span2">
                             <span class="heading">Recently Posted:</span>
-                            <ul class="nav nav-tabs nav-stacked">
-                                <li><a href="#">test</a></li>
-                                <li><a href="#">test</a></li>
-                                <li><a href="#">test</a></li>
-                                <li><a href="#">test</a></li>
-                                <li><a href="#">testesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestt</a></li>
-                                <li><a href="#">test</a></li>
-                                <li><a href="#">test</a></li>
-                                <li><a href="#">test</a></li>
-                                <li><a href="#">test</a></li>
-                                <li><a href="#">test</a></li>
-                            </ul>
+                            <ul id="recently-posted" class="nav nav-tabs nav-stacked"></ul>
                         </div>
                     </div>
                 </div>
             </div>
             <footer></footer>
+        </div>
+
+
+        <!-- Modal for creating topic -->
+        <div id="topicModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="configModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h3 id="topicModalLabel">Create Topic</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div id="topicFailureMessage" class="alert alert-error" style="display: none;"></div>
+                    <form class="form-horizontal" id="topicForm">
+                        <div class="control-group">
+                            <label class="control-label" for="topicTitle">Title:</label>
+                            <div class="controls">
+                                <input type="text" id="topicTitle"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="topicContent">Content:</label>
+                            <div class="controls">
+                                <textarea id="topicContent" rows="7"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button id="topicSubmitButton" class="btn btn-primary" onclick="createTopic()">Submit</button>
+            </div>
         </div>
     </body>
 </html>
