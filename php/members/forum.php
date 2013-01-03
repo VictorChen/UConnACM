@@ -179,7 +179,6 @@ if (!checkLoggedIn()) {
                 $("#backbtn1").hide("slow");
                 $("#create-post").hide("slow");
                 $("#category-list").hide("slow").empty();
-
                 $("#category-title").text(currentCategory[1]).show("slow");
                 $("#backbtn2").show("slow");
                 $("#delete-topic-btn").show("slow");
@@ -196,8 +195,8 @@ if (!checkLoggedIn()) {
                     data: {filename: currentFilename, category: currentCategory[0]}
                 }).done(function(results){
                     if (results === "success"){
+                        backToCategoryList();
                         $("#topicSuccessMessage").empty().append("Topic has been deleted").slideDown("slow");
-                        retrieveTopics();
                         updateRecent();
                     }else{
                         $("#topicFailureMessage").empty().append(results).slideDown("slow");
@@ -209,10 +208,10 @@ if (!checkLoggedIn()) {
                 displayHeader("../../",4);
                 displayFooter("../../");
 
+                // Show recent topics on page load
                 updateRecent();
                 
                 $(".home-category").click(transitionToList);
-
 
                 // Clear topic form on exit
                 $('#topicModal').on('hidden',function(){
@@ -252,7 +251,7 @@ if (!checkLoggedIn()) {
 
                             <button onClick="backToCategoryList();" id="backbtn2" class="btn" style="display: none;"><i class="icon-arrow-left"></i> Back</button>
                             <?php if (checkAdmin()) { ?>
-                                <button onClick='deleteTopic();' id="delete-topic-btn" class="btn btn-danger" style="display: none;">Delete Topic</button>
+                                <a id="delete-topic-btn" class="btn btn-danger" href="#deleteModal" data-toggle="modal" style="display: none;">Delete Topic</a>
                             <?php } ?>
                             <div style="display: none;" id="chat-title"></div>
                             <div style="display: none;" id="chat-content"></div>
