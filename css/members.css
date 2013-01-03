@@ -200,3 +200,8 @@
 .heading:hover{
 	color: black;
 }
+
+.post-delete-btn{
+  float: right;
+  margin-top: 5px;
+}

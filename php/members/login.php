@@ -12,7 +12,7 @@
             if (logUserIn($_POST['email'])) {
             
                 // Redirect to a given page if possible
-                header( 'Location: http://acm.uconn.edu/php/members/home.php' );
+                header( 'Location: http://acm.uconn.edu/php/members/forum.php' );
             
             } else {
             

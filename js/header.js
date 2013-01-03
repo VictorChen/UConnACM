@@ -51,7 +51,7 @@ function displayHeader(path, pageNumber){
 					</li>\
 					<li class='divider-vertical'></li>\
 					<li class='category'>\
-						<a href='http://acm.uconn.edu/php/members/home.php'>\
+						<a href='http://acm.uconn.edu/php/members/forum.php'>\
 							<i class=' icon-comment icon-white'></i>\
 							Members Area\
 						</a>\

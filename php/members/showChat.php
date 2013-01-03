@@ -1,5 +1,5 @@
 <?php
-    require_once('categorySystem.php');
+    require_once('forumSystem.php');
     require_once('accountSystem.php');
 
     $filename = $_POST['filename'];
