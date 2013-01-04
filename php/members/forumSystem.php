@@ -1,140 +1,209 @@
 <?php
+	/*
+	 * Utility functions for the forum
+	 */
 
-/*
- * Utility functions for the forum
- */
+	$categoriesLocation = '/u/acm/storage/categories/';
 
-$categoriesLocation = '/u/acm/storage/categories/';
+	/*
+	 * Returns the simplexml object of the file
+	 */
+	function openFile($category, $filename){
+		global $categoriesLocation;
 
-/*
- * Returns the simplexml object of the file
- */
-function openFile($category, $filename){
-	global $categoriesLocation;
-
-	$filePath = $categoriesLocation.$category."/".$filename;
-	if (file_exists($filePath)) {
-	    $xml = simplexml_load_file($filePath);
-	    return $xml;
-	}else{
-	    return FALSE;
+		$filePath = $categoriesLocation.$category."/".$filename;
+		if (file_exists($filePath)) {
+		    $xml = simplexml_load_file($filePath);
+		    return $xml;
+		}else{
+		    return FALSE;
+		}
 	}
-}
 
-/*
- * Save file as hour.minute.second_Seconds since the Unix Epoch_month.day.year.xml
- */
-function generateFileName($category){
-	global $categoriesLocation;
-	
-	$time = date("g.i.s_U");
-	$date = date("m.d.y");
-	return $time."_".$date.".xml";
-}
+	/*
+	 * Save file as hour.minute.second_Seconds since the Unix Epoch_month.day.year.xml
+	 */
+	function generateFileName($category){
+		global $categoriesLocation;
+		
+		$time = date("g.i.s_U");
+		$date = date("m.d.y");
+		return $time."_".$date.".xml";
+	}
 
-/*
- * Returns the current date in m/d/y format
- */
-function getChatDate($timestamp){
-	return date("m/d/y", $timestamp);
-}
+	/*
+	 * Returns the current date in m/d/y format
+	 */
+	function getChatDate($timestamp){
+		return date("m/d/y", $timestamp);
+	}
 
-/*
- * Returns the current time in h:m am/pm format
- */
-function getChatTime($timestamp){
-	return date("g:i a", $timestamp);
-}
+	/*
+	 * Returns the current time in h:m am/pm format
+	 */
+	function getChatTime($timestamp){
+		return date("g:i a", $timestamp);
+	}
 
-/*
- * Adds another <chat>...</chat> to the end of the xml file
- *
- * This is bad... our php version doesn't fully support simplexml. Right now I have to manually
- * edit the xml file to add a new message. Fix later...
- */
-function appendToXML($category, $filename, $xml){
-	global $categoriesLocation;
+	/*
+	 * Returns the number of files in the "recent" directory not including "." and ".."
+	 */
+	function getFilesCount($folder){
+		$dir = new DirectoryIterator($folder);
+		$count = 0;
+		foreach($dir as $file){
+			if (!$file->isDot()){
+				$count++;
+			}
+		}
+		return $count;
+	}
 
-	$filePath = $categoriesLocation.$category."/".$filename;
+	/*
+	 * Remove all files from the recent folder
+	 */
+	function clearFolder($folder){
+		$dir = new DirectoryIterator($folder);
+		foreach($dir as $file){
+			if (!$file->isDot()){
+				unlink($file->getPathname());
+			}
+		}
+	}
 
-	$file = file($filePath);
-	if ($file === FALSE) return FALSE;
+	/*
+	 * Similar to json_encode function, but our php version does not include it so here is the alternative.
+	 * Escapes string for json format.
+	 */
+	function escapeJsonString($value) {
+	    $escapers = array("\\", "/", "\"", "\n", "\r", "\t", "\x08", "\x0c");
+	    $replacements = array("\\\\", "\\/", "\\\"", "\\n", "\\r", "\\t", "\\f", "\\b");
+	    $result = str_replace($escapers, $replacements, $value);
+	    return $result;
+	}
 
-	// Remove last line of xml file (</post>)
-	array_pop($file);
+	/*
+	 * Certain characters like & can break an xml file. This function escapes the string so it is xml friendly.
+	 */
+	function escapeXmlString($string) {
+	    return str_replace(array("&", "<", ">", "\"", "'"),
+	        array("&amp;", "&lt;", "&gt;", "&quot;", "&apos;"), $string);
+	}
 
-	$fp = fopen($filePath, 'w');
-	if ($fp === FALSE) return FALSE;
+	/*
+	 * Adds another <chat>...</chat> to the end of the xml file
+	 *
+	 * This is bad... our php version doesn't fully support simplexml. Right now I have to manually
+	 * edit the xml file to add a new message. Fix later...
+	 */
+	function appendToXML($category, $filename, $xml){
+		global $categoriesLocation;
 
-	fwrite($fp, implode("", $file));
-	fwrite($fp, $xml);
-	fwrite($fp, "\n</post>");
-	fclose($fp);
-	return TRUE;
-}
+		$filePath = $categoriesLocation.$category."/".$filename;
 
-/*
- * Similar to json_encode function, but our php version does not include it so here is the alternative.
- * Escapes string for json format.
- */
-function escapeJsonString($value) {
-    $escapers = array("\\", "/", "\"", "\n", "\r", "\t", "\x08", "\x0c");
-    $replacements = array("\\\\", "\\/", "\\\"", "\\n", "\\r", "\\t", "\\f", "\\b");
-    $result = str_replace($escapers, $replacements, $value);
-    return $result;
-}
+		$file = file($filePath);
+		if ($file === FALSE) return FALSE;
 
-/*
- * Certain characters like & can break an xml file. This function escapes the string so it is xml friendly.
- */
-function escapeXmlString($string) {
-    return str_replace(array("&", "<", ">", "\"", "'"),
-        array("&amp;", "&lt;", "&gt;", "&quot;", "&apos;"), $string);
-}
+		// Remove last line of xml file (</post>)
+		array_pop($file);
 
-/*
- * Adds the file to the recent folder. If there are more than 10 files then delete the oldest one.
- */
-function addToRecent($category, $filename){
-	global $categoriesLocation;
+		$fp = fopen($filePath, 'w');
+		if ($fp === FALSE) return FALSE;
 
-	if (file_exists($categoriesLocation."recent/".$filename)) {
+		fwrite($fp, implode("", $file));
+		fwrite($fp, $xml);
+		fwrite($fp, "\n</post>");
+		fclose($fp);
 		return TRUE;
 	}
 
-	// Number of files in directory without "." and ".."
-	$numFiles = iterator_count(new DirectoryIterator($categoriesLocation."recent"))-2;
-	if ($numFiles >= 100){
-		// Set time to infinity
-		$mTime = INF;
+	/*
+	 * Adds the file to the recent folder. If there are more than 100 files then delete the oldest one.
+	 */
+	function addToRecent($category, $filename){
+		global $categoriesLocation;
 
-		// Name of the oldest file in directory
-		$oldestFilename = '';    
+		$recentPath = $categoriesLocation."recent/";
+		if (file_exists($recentPath.$filename)) {
+			return TRUE;
+		}
 
-		$recentFolder = dir($categoriesLocation."recent");
-		while (false !== ($entry = $recentFolder->read())) {
-			$filePath = $categoriesLocation."recent/".$entry;
-			if (is_file($filePath)){
-				$modifiedTime = filemtime($filePath);
-				if ($modifiedTime < $mTime) {
-					$mTime = $modifiedTime;
-					$oldestFilename = $entry;
+		// Number of files in directory without "." and ".."
+
+		$numFiles = getFilesCount($recentPath);
+		if ($numFiles >= 100){
+			// Set time to infinity
+			$mTime = INF;
+
+			// Name of the oldest file in directory
+			$oldestFilename = '';    
+
+			$recentFolder = dir($categoriesLocation."recent");
+			while (false !== ($entry = $recentFolder->read())) {
+				$filePath = $categoriesLocation."recent/".$entry;
+				if (is_file($filePath)){
+					$modifiedTime = filemtime($filePath);
+					if ($modifiedTime < $mTime) {
+						$mTime = $modifiedTime;
+						$oldestFilename = $entry;
+					}
 				}
 			}
-		}
-		$recentFolder->close();
+			$recentFolder->close();
 
-		// Delete the oldest file
-		$result = unlink($categoriesLocation."recent/".$oldestFilename);
-		if ($result === FALSE){
-			return FALSE;
+			// Delete the oldest file
+			$result = unlink($categoriesLocation."recent/".$oldestFilename);
+			if ($result === FALSE){
+				return FALSE;
+			}
 		}
+
+		$target = $categoriesLocation.$category."/".$filename;
+		$link = $categoriesLocation."recent/".$filename;
+
+		// Create a soft link in the recent folder
+		return symlink($target, $link);
 	}
 
-	$target = $categoriesLocation.$category."/".$filename;
-	$link = $categoriesLocation."recent/".$filename;
+	/*
+	 * Grab recent files and put them in the recent folder if the number of files in the folder is less than 10.
+	 */
+	function refreshRecent(){
+		global $categoriesLocation;
 
-	// Create a soft link in the recent folder
-	return symlink($target, $link);
-}
+		$folder = $categoriesLocation."recent";
+		$numFiles = getFilesCount($folder);
+		if ($numFiles < 10){
+			// Clear out the recent files
+			clearFolder($folder);
+
+			// Array to hold all the files
+			$files = array();
+
+			// Loop through all the files from all categories
+			$directory = $categoriesLocation;
+			$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
+			while($it->valid()){
+			    if (!$it->isDot()){
+			    	$filePath = $it->key();
+			    	$fileInfo = explode("/", $it->getSubPathName());
+			    	$category = $fileInfo[0];
+			    	$filename = $fileInfo[1];
+			        $files[filemtime($filePath)] = array($category, $filename);
+			    }
+			    $it->next();
+			}
+
+			// Sort all the files by their modified time
+			krsort($files);
+
+			// Put the first 100 (or less) files into the recent folder
+			$count = 0;
+		    foreach($files as $file){
+		        if ($count >= 100) break;
+		        addToRecent($file[0], $file[1]);
+		        $count++;
+		    }
+		}
+	}
 ?>

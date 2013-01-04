@@ -28,14 +28,17 @@
 		exit();
 	}
 
-	if (!unlink($filePath)){
-		echo "Error deleting topic";
-		exit();
-	}
-
-	if (file_exists($fileRecentPath) && !unlink($fileRecentPath)) {
-		echo "Error deleting recent topic";
-		exit();
+	if (file_exists($fileRecentPath)) {
+		if (!unlink($fileRecentPath)){
+			echo "Error deleting recent topic";
+			exit();
+		}else{
+			if (!unlink($filePath)){
+				echo "Error deleting topic";
+				exit();
+			}
+			refreshRecent();
+		}
 	}
 
 	echo "success";
