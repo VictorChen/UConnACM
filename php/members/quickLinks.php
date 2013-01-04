@@ -3,6 +3,7 @@
     <li><a href="http://acm.uconn.edu/php/members/forum.php">Forum</a></li>
     <li><a href="http://acm.uconn.edu/php/members/userList.php">Users</a></li>
     <li><a href="http://acm.uconn.edu/php/members/feedback.php">Feedback</a></li>
+    <li><a href="http://acm.uconn.edu/php/members/improve.php">Help Improve Website</a></li>
 </ul>
 
 <ul class="nav nav-tabs nav-stacked">
