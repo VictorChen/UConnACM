@@ -31,11 +31,11 @@ if (!checkLoggedIn()) {
 
             function transitionToList(){
                 var title = $(this).text();
-                $("#topicSuccessMessage").slideUp("slow").empty();
-                $(".home-category").hide("slow");
-                $("#backbtn1").show("slow");
-                $("#create-post").show("slow");
-                $("#category-title").text(title).show("slow");
+                $("#topicSuccessMessage").slideUp("fast").empty();
+                $(".home-category").hide("fast");
+                $("#backbtn1").show("fast");
+                $("#create-post").show("fast");
+                $("#category-title").text(title).show("fast");
                 currentCategory = [$(this).attr("value"), title];
                 retrieveTopics();
             }
@@ -46,7 +46,7 @@ if (!checkLoggedIn()) {
                     url: "retrieveTopics.php",
                     data: {category: currentCategory[0]}
                 }).done(function(results) {
-                    $("#category-list").empty().append(results).show("slow");
+                    $("#category-list").empty().append(results).show("fast");
                     $('.post-author').click(function(event){
                         event.stopImmediatePropagation();   // Stop chat from showing when user is clicked
                         $("#configModal").modal('show');    // Show the user's profile
@@ -61,41 +61,41 @@ if (!checkLoggedIn()) {
             }
 
             function backToCategory(){
-                $("#topicSuccessMessage").slideUp("slow").empty();
-                $("#topicFailureMessage").slideUp("slow").empty();
-                $("#backbtn1").hide("slow");
-                $("#create-post").hide("slow");
-                $("#category-title").hide("slow");
-                $("#category-list").hide("slow").empty();
-                $(".home-category").show("slow");
+                $("#topicSuccessMessage").slideUp("fast").empty();
+                $("#topicFailureMessage").slideUp("fast").empty();
+                $("#backbtn1").hide("fast");
+                $("#create-post").hide("fast");
+                $("#category-title").hide("fast");
+                $("#category-list").hide("fast").empty();
+                $(".home-category").show("fast");
             }
 
             function backToCategoryList(){
-                $("#topicSuccessMessage").slideUp("slow").empty();
-                $("#topicFailureMessage").slideUp("slow").empty();
-                $("#backbtn2").hide("slow");
-                $("#delete-topic-btn").hide("slow");
-                $("#chat-title").hide("slow");
-                $("#chat-content").hide("slow");
-                $("#chat-box").hide("slow").empty();
-                $("#chat-area").hide("slow");
-                $("#chat-post-btn").hide("slow");
-                $("#backbtn1").show("slow");
-                $("#create-post").show("slow");
-                $("#category-title").text(currentCategory[1]).show("slow");
+                $("#topicSuccessMessage").slideUp("fast").empty();
+                $("#topicFailureMessage").slideUp("fast").empty();
+                $("#backbtn2").hide("fast");
+                $("#delete-topic-btn").hide("fast");
+                $("#chat-title").hide("fast");
+                $("#chat-content").hide("fast");
+                $("#chat-box").hide("fast").empty();
+                $("#chat-area").hide("fast");
+                $("#chat-post-btn").hide("fast");
+                $("#backbtn1").show("fast");
+                $("#create-post").show("fast");
+                $("#category-title").text(currentCategory[1]).show("fast");
                 retrieveTopics();
             }
 
             function transitionToChat(){
-                $("#topicSuccessMessage").slideUp("slow").empty();
-                $("#topicFailureMessage").slideUp("slow").empty();
-                $("#backbtn1").hide("slow");
-                $("#create-post").hide("slow");
-                $("#category-list").hide("slow").empty();
-                $("#backbtn2").show("slow");
-                $("#delete-topic-btn").show("slow");
-                $("#chat-area").show("slow");
-                $("#chat-post-btn").show("slow");
+                $("#topicSuccessMessage").slideUp("fast").empty();
+                $("#topicFailureMessage").slideUp("fast").empty();
+                $("#backbtn1").hide("fast");
+                $("#create-post").hide("fast");
+                $("#category-list").hide("fast").empty();
+                $("#backbtn2").show("fast");
+                $("#delete-topic-btn").show("fast");
+                $("#chat-area").show("fast");
+                $("#chat-post-btn").show("fast");
                 currentFilename = $(this).find(".post-filename").text();
                 showChat();
             }
@@ -108,11 +108,11 @@ if (!checkLoggedIn()) {
                     data: {filename: currentFilename, category: currentCategory[0]}
                 }).done(function(results){
                     if (results.error){
-                        $("#topicFailureMessage").empty().append(results.error).slideDown("slow");
+                        $("#topicFailureMessage").empty().append(results.error).slideDown("fast");
                     }else{
-                        $("#chat-title").empty().append(results.title).show("slow");
-                        $("#chat-content").empty().append(results.content).show("slow");
-                        $("#chat-box").empty().append(results.messages).show("slow");
+                        $("#chat-title").empty().append(results.title).show("fast");
+                        $("#chat-content").empty().append(results.content).show("fast");
+                        $("#chat-box").empty().append(results.messages).show("fast");
                         $("#chat-box").scrollTop($("#chat-box")[0].scrollHeight);
                     }
                 });
@@ -125,14 +125,14 @@ if (!checkLoggedIn()) {
                     data: {title: $("#topicTitle").val(), content: $("#topicContent").val(), category: currentCategory[0]}
                 }).done(function(results) {
                     if (results === "success"){
-                        $("#topicSuccessMessage").empty().append("Success! Topic has been posted").slideDown("slow");
-                        $("#topicFailureMessage").slideUp("slow").empty();
+                        $("#topicSuccessMessage").empty().append("Success! Topic has been posted").slideDown("fast");
+                        $("#topicFailureMessage").slideUp("fast").empty();
                         $('#topicModal').modal('hide')
                         $("#category-list").empty();
                         retrieveTopics();
                         updateRecent();
                     }else{
-                        $("#modalErrorMessage").empty().append(results).slideDown("slow");
+                        $("#modalErrorMessage").empty().append(results).slideDown("fast");
                     }
                 });
             }
@@ -144,13 +144,13 @@ if (!checkLoggedIn()) {
                     data: {filename: currentFilename, message: $("#chat-area").val(), category: currentCategory[0]}
                 }).done(function(results) {
                     if (results === "success"){
-                        $("#topicFailureMessage").slideUp("slow").empty();
+                        $("#topicFailureMessage").slideUp("fast").empty();
                         $("#chat-box").empty();
                         $("#chat-area").val('');
                         showChat();
                         updateRecent();
                     }else{
-                        $("#topicFailureMessage").empty().append(results).slideDown("slow");
+                        $("#topicFailureMessage").empty().append(results).slideDown("fast");
                     }
                 });
             }
@@ -173,17 +173,17 @@ if (!checkLoggedIn()) {
                     }
                 });
                 currentFilename = $(this).next().text();
-                $(".home-category").hide("slow");
-                $("#topicSuccessMessage").slideUp("slow").empty();
-                $("#topicFailureMessage").slideUp("slow").empty();
-                $("#backbtn1").hide("slow");
-                $("#create-post").hide("slow");
-                $("#category-list").hide("slow").empty();
-                $("#category-title").text(currentCategory[1]).show("slow");
-                $("#backbtn2").show("slow");
-                $("#delete-topic-btn").show("slow");
-                $("#chat-area").show("slow");
-                $("#chat-post-btn").show("slow");
+                $(".home-category").hide("fast");
+                $("#topicSuccessMessage").slideUp("fast").empty();
+                $("#topicFailureMessage").slideUp("fast").empty();
+                $("#backbtn1").hide("fast");
+                $("#create-post").hide("fast");
+                $("#category-list").hide("fast").empty();
+                $("#category-title").text(currentCategory[1]).show("fast");
+                $("#backbtn2").show("fast");
+                $("#delete-topic-btn").show("fast");
+                $("#chat-area").show("fast");
+                $("#chat-post-btn").show("fast");
 
                 showChat();
             }
@@ -196,10 +196,10 @@ if (!checkLoggedIn()) {
                 }).done(function(results){
                     if (results === "success"){
                         backToCategoryList();
-                        $("#topicSuccessMessage").empty().append("Topic has been deleted").slideDown("slow");
+                        $("#topicSuccessMessage").empty().append("Topic has been deleted").slideDown("fast");
                         updateRecent();
                     }else{
-                        $("#topicFailureMessage").empty().append(results).slideDown("slow");
+                        $("#topicFailureMessage").empty().append(results).slideDown("fast");
                     }
                 });
             }
