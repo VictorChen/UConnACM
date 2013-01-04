@@ -26,7 +26,7 @@
     $status = 'more';
     $amountToLoad = 10;
     foreach($files as $file){
-        if ($count == $startFrom){
+        if (!$startEcho && $count == $startFrom){
             $startEcho = true;
             $count = 0;
         }
