@@ -110,6 +110,21 @@ footer div span.footer-info{
 
 div#join-us{
   padding: 50px;
+  background-color: #CDDBFF;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#CDDBFF));
+  background-image: -moz-linear-gradient(top, white, #CDDBFF);
+  background-image: -webkit-linear-gradient(top, white, #CDDBFF);
+  background-image: -o-linear-gradient(top, white, #CDDBFF);
+  background-image: linear-gradient(to bottom, white, #CDDBFF);
+}
+
+div#announcements-box{
+  background-color: #CDDBFF;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#CDDBFF));
+  background-image: -moz-linear-gradient(top, white, #CDDBFF);
+  background-image: -webkit-linear-gradient(top, white, #CDDBFF);
+  background-image: -o-linear-gradient(top, white, #CDDBFF);
+  background-image: linear-gradient(to bottom, white, #CDDBFF);
 }
 
 .well .separate-bar{
