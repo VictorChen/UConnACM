@@ -1,6 +1,7 @@
 <?php
 // Load the account system
 require_once('accountSystem.php');
+require_once('forumSystem.php');
 
 // Don't do anything if the user isn't logged in
 if (!checkLoggedIn()) {
@@ -22,15 +23,11 @@ if ($account === FALSE) {
 }
 
 // These fields are mandatory
-$result = '{"success":true,"email":"' . $account['email'] . '","firstName":"' . $account['firstName'] . '","lastName":"' . $account['lastName'] . '","admin":"';
+$result = '{"success":true,"email":"'.escapeJsonString($account['email']).'","firstName":"'.escapeJsonString($account['firstName']).'","lastName":"'.escapeJsonString($account['lastName']).'","admin":"';
 if ($account['authLevel'] == 1) $result .= 'true';
 
 // The remaining fields are optional ones but may cause javascript errors if they aren't given
-$result .= '","major":"' . $account['major'] . '","year":"' . $account['year'] . '","aboutMe":"' . $account['aboutMe'] . '"}';
-
-// Replace illegal control characters in json with escaped versions
-// (Read up on how PHP handles "" vs '' to understand how this works)
-$result = str_replace(array("\r", "\n"), array('\r', '\n'), $result);
+$result .= '","major":"'.escapeJsonString($account['major']).'","year":"'.escapeJsonString($account['year']).'","aboutMe":"'.escapeJsonString($account['aboutMe']).'"}';
 
 echo $result;
 

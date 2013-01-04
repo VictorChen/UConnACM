@@ -22,9 +22,7 @@
     // List the 10 recent files
     $count = 0;
     foreach($files as $file){
-        if ($count >= 10){
-            break;
-        }
+        if ($count >= 10) break;
         $post = openFile("recent", $file);
         echo "<li>";
         echo "<a href='#' title='".htmlentities($post->title, ENT_QUOTES, "UTF-8")."' onClick='return false;' class='recent-post'>".$post->title."</a>";
