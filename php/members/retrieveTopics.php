@@ -42,12 +42,12 @@
             }
 
             $topics .= '<li class="category-post">';
-                $topics .= '<span class="post-title">'.$post->title.'</span>';
+                $topics .= '<span class="post-title">'.htmlentities($post->title).'</span>';
                 $topics .= '<span class="post-time">';
                     $topics .= '<span class="label label-success">'.getChatTime(filemtime($filePath)).'</span>';
                     $topics .= '<span class="label label-info">'.getChatDate(filemtime($filePath)).'</span>';
                 $topics .= '</span>';
-                $topics .= '<span class="post-author">By: <a href="#configModal" onclick="loadAccountData(\'' . hashEmail($post->email) . '\', true)" data-toggle="modal">'.$post->first.' '.$post->last.'</a></span>';
+                $topics .= '<span class="post-author">By: <a href="#configModal" onclick="loadAccountData(\'' . hashEmail($post->email) . '\', true)" data-toggle="modal">'.htmlentities($post->first).' '.htmlentities($post->last).'</a></span>';
                 $topics .= '<span class="post-filename">'.$file.'</span>';
                 if (checkAdmin()) $topics .= '<br><button class="btn btn-danger post-delete-btn">Delete Topic</button>';
             $topics .= '</li>';

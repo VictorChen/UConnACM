@@ -55,6 +55,7 @@ if (!checkLoggedIn()) {
 
                             <button onClick="backToCategoryList();" id="backbtn2" class="btn" style="display: none;"><i class="icon-arrow-left"></i> Back</button>
                             <?php if (checkAdmin()) { ?>
+                                <a id="edit-topic-btn" class="btn btn-primary" onClick="loadTopicXML();" href="#editModal" data-toggle="modal" style="display: none;">Edit Topic</a>
                                 <a id="delete-topic-btn" class="btn btn-danger" href="#deleteModal" data-toggle="modal" style="display: none;">Delete Topic</a>
                             <?php } ?>
                             <div style="display: none;" id="chat-title"></div>
@@ -116,6 +117,22 @@ if (!checkLoggedIn()) {
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
                 <button class="btn btn-primary" data-dismiss="modal" onclick="deleteTopic();">Delete</button>
+            </div>
+        </div>
+
+        <!-- Modal for editing topic -->
+        <div id="editModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="configModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h3>Edit Topic</h3>
+            </div>
+            <div class="modal-body">
+                <div id="editErrorMessage" class="alert alert-error" style="display: none;"></div>
+                <textarea id="editTopicContent" rows="7"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button id="editTopicSubmitButton" class="btn btn-primary" onclick="editTopic()">Submit</button>
             </div>
         </div>
     </body>

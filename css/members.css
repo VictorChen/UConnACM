@@ -190,6 +190,20 @@
 	width: 450px;
 }
 
+#editModal{
+	width: 700px;
+	margin-left: -350px;
+}
+
+#editModal .modal-body{
+	max-height: 500px;
+}
+
+#editTopicContent{
+	width: 660px;
+	height: 327px;
+}
+
 .heading{
 	background-color: #fafafa;
 	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#F2F2F2));

@@ -14,10 +14,16 @@ function transitionToList(){
     currentCategory = [$(this).attr("value"), title];
     currentPage = 2;
     topicStartLoad = 0;
+    processing = false;
     retrieveTopics();
 }
 
 function retrieveTopics(){
+    // Prevent calling ajax multiple times
+    if (processing)
+        return false;
+    processing = true;
+
     $.ajax({
         type: "POST",
         dataType: 'json',
@@ -57,17 +63,20 @@ function backToCategoryList(){
     $("#topicFailureMessage").slideUp("fast").empty();
     $("#backbtn2").hide("fast");
     $("#delete-topic-btn").hide("fast");
+    $("#edit-topic-btn").hide("fast");
     $("#chat-title").hide("fast");
     $("#chat-content").hide("fast");
     $("#chat-box").hide("fast").empty();
     $("#chat-area").hide("fast");
     $("#chat-post-btn").hide("fast");
     $("#category-list").hide().empty();
+    $("#chat-area").val('');
     $("#backbtn1").show("fast");
     $("#create-post").show("fast");
     $("#category-title").text(currentCategory[1]).show("fast");
     currentPage = 2;
     topicStartLoad = 0;
+    processing = false;
     retrieveTopics();
 }
 
@@ -79,6 +88,7 @@ function transitionToChat(){
     $("#category-list").hide("fast").empty();
     $("#backbtn2").show("fast");
     $("#delete-topic-btn").show("fast");
+    $("#edit-topic-btn").show("fast");
     $("#chat-area").show("fast");
     $("#chat-post-btn").show("fast");
     currentFilename = $(this).find(".post-filename").text();
@@ -116,6 +126,7 @@ function createTopic(){
             $('#topicModal').modal('hide')
             $("#category-list").empty();
             topicStartLoad = 0;
+            processing = false;
             retrieveTopics();
             updateRecent();
         }else{
@@ -166,9 +177,11 @@ function showChatFromRecent(){
     $("#backbtn1").hide("fast");
     $("#create-post").hide("fast");
     $("#category-list").hide("fast").empty();
+    $("#chat-area").val('');
     $("#category-title").text(currentCategory[1]).show("fast");
     $("#backbtn2").show("fast");
     $("#delete-topic-btn").show("fast");
+    $("#edit-topic-btn").show("fast");
     $("#chat-area").show("fast");
     $("#chat-post-btn").show("fast");
     currentPage = 3;
@@ -184,9 +197,39 @@ function deleteTopic(){
         if (results === "success"){
             backToCategoryList();
             $("#topicSuccessMessage").empty().append("Topic has been deleted").slideDown("fast");
+            $("#topicFailureMessage").slideUp("fast").empty();
             updateRecent();
         }else{
             $("#topicFailureMessage").empty().append(results).slideDown("fast");
+            $("#topicSuccessMessage").slideUp("fast").empty();
+        }
+    });
+}
+
+function loadTopicXML(){
+    $.ajax({
+        type: "POST",
+        url: "loadTopicXML.php",
+        data: {filename: currentFilename, category: currentCategory[0]}
+    }).done(function(results){
+        $("#editTopicContent").val(results);
+    });
+}
+
+function editTopic(){
+    $.ajax({
+        type: "POST",
+        url: "editTopic.php",
+        data: {filename: currentFilename, category: currentCategory[0], xml: $("#editTopicContent").val()}
+    }).done(function(results){
+        if (results === "success"){
+            $("#topicSuccessMessage").empty().append("Topic has been edited").slideDown("fase");
+            $("#topicFailureMessage").slideUp("fast").empty();
+            $('#editModal').modal('hide')
+            showChat();
+            updateRecent();
+        }else{
+            $("#editErrorMessage").empty().append(results).slideDown("fast");
         }
     });
 }
@@ -206,16 +249,14 @@ $(function(){
         $("#topicTitle").val('');
         $("#topicContent").val('');
     });
+    $('#editModal').on('hidden',function(){
+        $("#editErrorMessage").empty().hide();
+    });
 
     $(document).scroll(function(){
-        // Prevent calling ajax multiple times
-        if (processing)
-            return false;
-
         // Load more topics when scroll is near bottom
         if ($(window).scrollTop() >= ($(document).height() - $(window).height())*0.9){
             if (currentPage === 2){
-                processing = true;
                 retrieveTopics(topicStartLoad);
             }
         }

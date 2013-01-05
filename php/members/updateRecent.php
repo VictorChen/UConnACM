@@ -25,7 +25,7 @@
         if ($count >= 10) break;
         $post = openFile("recent", $file);
         echo "<li>";
-        echo "<a href='#' title='".htmlentities($post->title, ENT_QUOTES, "UTF-8")."' onClick='return false;' class='recent-post'>".$post->title."</a>";
+        echo "<a href='#' title='".htmlentities($post->title, ENT_QUOTES, "UTF-8")."' onClick='return false;' class='recent-post'>".htmlentities($post->title)."</a>";
         echo "<span style='display: none;' class='post-filename'>".$file."</span>";
         echo "<span style='display: none;' class='post-category'>".$post->category."</span>";
         echo "</li>";
