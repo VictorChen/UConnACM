@@ -162,6 +162,7 @@
 
 #chat-area{
 	width: 100%;
+	resize: auto;
 	height: 100px;
 	margin-top: 20px;
 	-webkit-box-sizing: border-box;
