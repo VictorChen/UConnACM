@@ -9,7 +9,7 @@
 
     $filename = $_POST['filename'];
     $category = $_POST['category'];
-    $xml = $_POST['xml'];
+    $xml = trim($_POST['xml']);
 
     if (!isset($_POST['filename']) || $_POST['filename'] == '') {
 	    echo 'Error, no topic to delete';

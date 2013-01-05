@@ -91,30 +91,20 @@
 	}
 
 	/*
-	 * Adds another <chat>...</chat> to the end of the xml file
-	 *
-	 * This is bad... our php version doesn't fully support simplexml. Right now I have to manually
-	 * edit the xml file to add a new message. Fix later...
+	 * Adds another <chat>...</chat> right before the </post> tag
 	 */
 	function appendToXML($category, $filename, $xml){
 		global $categoriesLocation;
+	   
+	    $handle = fopen($categoriesLocation.$category."/".$filename, "r+");
+	    if ($handle === FALSE) return FALSE;
 
-		$filePath = $categoriesLocation.$category."/".$filename;
+	    // Move file pointer to the start of </post>
+	    if (fseek($handle, -7, SEEK_END) === -1) return FALSE;
 
-		$file = file($filePath);
-		if ($file === FALSE) return FALSE;
-
-		// Remove last line of xml file (</post>)
-		array_pop($file);
-
-		$fp = fopen($filePath, 'w');
-		if ($fp === FALSE) return FALSE;
-
-		fwrite($fp, implode("", $file));
-		fwrite($fp, $xml);
-		fwrite($fp, "\n</post>");
-		fclose($fp);
-		return TRUE;
+	    // Write the new content and end it with </post>
+	    if (fwrite($handle, $xml."\n</post>") === FALSE) return FALSE;
+	    return fclose($handle);
 	}
 
 	/*

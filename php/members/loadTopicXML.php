@@ -11,5 +11,6 @@
         exit();
     }
     
+    // Pretty print for xml
     echo xmlpp($post->asXML());
 ?>
