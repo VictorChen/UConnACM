@@ -1,5 +1,11 @@
 <?php
     require_once('forumSystem.php');
+    require_once('accountSystem.php');
+
+    if (!checkAdmin()) {
+	    echo "Not Authorized";
+	    exit();
+	}
 
     $filename = $_POST['filename'];
     $category = $_POST['category'];
