@@ -110,6 +110,7 @@ footer div span.footer-info{
 
 div#join-us{
   padding: 50px;
+  max-height: 244px;
   background-color: #CDDBFF;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#CDDBFF));
   background-image: -moz-linear-gradient(top, white, #CDDBFF);

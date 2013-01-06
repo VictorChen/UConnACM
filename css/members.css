@@ -35,7 +35,6 @@
 
 .home-category{
 	line-height: 150px;
-	width: 169px;
 	border: 1px solid #08C;
 	border-right: 5px solid #516BAF;
 	border-top: 5px solid #D3E0FF;
@@ -44,6 +43,10 @@
 	float: left;
 	margin: 20px;
 	font-size: 16px;
+	height: 156px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 	font-weight: bolder;
 }
 
@@ -54,36 +57,49 @@
 	background-color: #FFFEF5;
 }
 
+#category-container{
+	margin-bottom: 20px;
+}
+
 #courses-category{
-	background: url('http://acm.uconn.edu/img/course.jpg');
+	background: url('http://acm.uconn.edu/img/course.jpg') no-repeat center center;
 }
 
 #textbooks-category{
-	background: url('http://acm.uconn.edu/img/textbooks.jpg');
+	background: url('http://acm.uconn.edu/img/textbooks.jpg') no-repeat center center;
 }
 
 #acm-category{
-	background: url('http://acm.uconn.edu/img/acmlogo.jpg');
+	background: url('http://acm.uconn.edu/img/acmlogo.jpg') no-repeat center center;
 }
 
 #programming-category{
-	background: url('http://acm.uconn.edu/img/programming.jpg');
+	background: url('http://acm.uconn.edu/img/programming.jpg') no-repeat center center;
 }
 
 #jobs-category{
-	background: url('http://acm.uconn.edu/img/jobs.jpg');
+	background: url('http://acm.uconn.edu/img/jobs.jpg') no-repeat center center;
 }
 
 #introduce-category{
-	background: url('http://acm.uconn.edu/img/introduce.jpg');
+	background: url('http://acm.uconn.edu/img/introduce.jpg') no-repeat center center;
 }
 
 #resources-category{
-	background: url('http://acm.uconn.edu/img/resources.jpg');
+	background: url('http://acm.uconn.edu/img/resources.jpg') no-repeat center center;
 }
 
 #anything-category{
-	background: url('http://acm.uconn.edu/img/anything.jpg');
+	background: url('http://acm.uconn.edu/img/anything.jpg') no-repeat center center;
+}
+
+#courses-category, #textbooks-category, #acm-category, 
+#programming-category, #jobs-category, #introduce-category, 
+#resources-category, #anything-category{
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 #category-title{

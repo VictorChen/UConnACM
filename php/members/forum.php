@@ -36,15 +36,15 @@ if (!checkLoggedIn()) {
                         <div class="span2">
                             <?php include("quickLinks.php"); ?>
                         </div>
-                        <div class="span8" style="margin-bottom: 20px;">
-                            <div class="home-category" value="courses" id="courses-category">Courses</div>
-                            <div class="home-category" value="textbooks" id="textbooks-category">Textbooks</div>
-                            <div class="home-category" value="acm" id="acm-category">ACM</div>
-                            <div class="home-category" value="programming" id="programming-category">Programming</div>
-                            <div class="home-category" value="jobs" id="jobs-category">Jobs / Internships</div>
-                            <div class="home-category" value="introduce" id="introduce-category">Introduce Yourself</div>
-                            <div class="home-category" value="resources" id="resources-category">Resources</div>
-                            <div class="home-category" value="anything" id="anything-category">Anything</div>
+                        <div id="category-container" class="span8">
+                            <div class="home-category" value="courses" title="Courses" id="courses-category">Courses</div>
+                            <div class="home-category" value="textbooks" title="Textbooks" id="textbooks-category">Textbooks</div>
+                            <div class="home-category" value="acm" title="ACM" id="acm-category">ACM</div>
+                            <div class="home-category" value="programming" title="Programming" id="programming-category">Programming</div>
+                            <div class="home-category" value="jobs" title="Jobs / Internships" id="jobs-category">Jobs / Internships</div>
+                            <div class="home-category" value="introduce" title="Introduce Yourself" id="introduce-category">Introduce Yourself</div>
+                            <div class="home-category" value="resources" title="Resources" id="resources-category">Resources</div>
+                            <div class="home-category" value="anything" title="Anything" id="anything-category">Anything</div>
                             
                             <div id="topicSuccessMessage" class="alert alert-success" style="display: none;"></div>
                             <div id="topicFailureMessage" class="alert alert-danger" style="display: none;"></div>

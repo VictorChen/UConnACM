@@ -238,6 +238,17 @@ $(function(){
     displayHeader("../../",4);
     displayFooter("../../");
 
+    // Dynamically set the width of the categories 
+    var resizeCategories = function(){
+        var newBoxWidth = $("#category-container").width()/4;
+        var boxTotalWidth = $(".home-category").outerWidth(true);
+        var boxWidth = $(".home-category").width();
+        var padding = boxTotalWidth - boxWidth;
+        $(".home-category").width(newBoxWidth-padding-1);   // -1 for round-off error
+    };
+    resizeCategories();
+    $(window).resize(resizeCategories);
+
     // Show recent topics on page load
     updateRecent();
     
@@ -253,8 +264,8 @@ $(function(){
         $("#editErrorMessage").empty().hide();
     });
 
+    // Load more topics when scroll is near bottom
     $(document).scroll(function(){
-        // Load more topics when scroll is near bottom
         if ($(window).scrollTop() >= ($(document).height() - $(window).height())*0.9){
             if (currentPage === 2){
                 retrieveTopics(topicStartLoad);
