@@ -31,15 +31,18 @@ function retrieveTopics(){
         data: {category: currentCategory[0], startFrom: topicStartLoad}
     }).done(function(results) {
         $("#category-list").append(results.topics).show("fast");
+        $('.post-author').off('click');
         $('.post-author').click(function(event){
             event.stopImmediatePropagation();   // Stop chat from showing when user is clicked
             $("#configModal").modal('show');    // Show the user's profile
         });
+        $('.post-delete-btn').off('click');
         $(".post-delete-btn").click(function(event){
             event.stopImmediatePropagation();
             currentFilename = $(this).parent().find(".post-filename").text();
             $("#deleteModal").modal('show');
         });
+        $(".category-post").off('click');
         $(".category-post").click(transitionToChat);
         topicStartLoad += 10;
         if (results.status === "more")
@@ -276,7 +279,7 @@ $(function(){
     $(document).scroll(function(){
         if ($(window).scrollTop() >= ($(document).height() - $(window).height())*0.7){
             if (currentPage === 2){
-                retrieveTopics(topicStartLoad);
+                retrieveTopics();
             }
         }
     });
