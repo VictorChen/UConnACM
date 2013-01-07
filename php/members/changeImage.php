@@ -22,7 +22,7 @@
 	$size = $_FILES['image']['size'];
 
 	if (!in_array($type, $permitted) || $size <= 0 || $size > MAX_FILE_SIZE){
-		echo "File is either too big or is not an image.";
+		echo "File is either too big or is not an image. Max size for image is 50KB";
 		exit();
 	}
 	

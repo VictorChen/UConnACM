@@ -83,6 +83,7 @@ if (!checkLoggedIn()) {
                             <table id="accountTable" class="table table-bordered table-striped tablesorter">
                                 <thead>
                                     <tr>
+                                        <th>User Picture</th>
                                         <th>Email</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
@@ -101,7 +102,9 @@ if (!checkLoggedIn()) {
                                             while (false !== ($entry = readdir($handle))) {
                                                 if ($entry != '.' && $entry != '..') {
                                                     $account = getAccountDataByHash($entry);
-                                                    echo '<tr><td>' . $account['email'] . '</td>';
+                                                    
+                                                    echo '<tr><td><img src="http://acm.uconn.edu/accountImages/'.getUserImage($entry).'" width="50" height="50" /></td>';
+                                                    echo '<td>' . $account['email'] . '</td>';
                                                     echo '<td>' . $account['firstName'] . '</td>';
                                                     echo '<td>' . $account['lastName'] . '</td>';
                                                     echo '<td>';

@@ -49,7 +49,9 @@
                 $topics .= '</span>';
                 $topics .= '<span class="post-author">By: <a href="#configModal" onclick="loadAccountData(\'' . hashEmail($post->email) . '\', true)" data-toggle="modal">'.htmlentities($post->first).' '.htmlentities($post->last).'</a></span>';
                 $topics .= '<span class="post-filename">'.$file.'</span>';
-                if (checkAdmin()) $topics .= '<br><button class="btn btn-danger post-delete-btn">Delete Topic</button>';
+                if (checkAdmin()) $topics .= '<button class="btn btn-danger post-delete-btn">Delete Topic</button>';
+                else $topics .= "<div style='clear: both;'></div>";
+                $topics .= '<img class="userImageList" src="http://acm.uconn.edu/accountImages/'.getUserImage(hashEmail($post->email)).'" width="50" height="50" />';
             $topics .= '</li>';
         }
         $count++;

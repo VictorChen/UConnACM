@@ -16,6 +16,7 @@
 // Note these two locations both need to exist and have full permissions for the system to work
 session_save_path('/u/acm/storage/sessions');
 $databaseLocation = '/u/acm/storage/accounts/';
+$userImageLocation = '/u/acm/public_html/accountImages/';
 
 // Create or load a session for the current user
 session_start();
@@ -142,6 +143,17 @@ function logUserIn($email) {
 // Logs the user out of any account
 function logUserOut() {
     unset($_SESSION['account']);
+}
+
+// Get the user's profile image name
+function getUserImage($hash){
+    global $userImageLocation;
+
+    if (file_exists($userImageLocation.$hash.".png")){
+        return $hash.".png";
+    }else{
+        return "default.png";
+    }
 }
 
 // ********** UTILITY FUNCTIONS HERE **********

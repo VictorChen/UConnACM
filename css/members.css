@@ -236,8 +236,9 @@
 }
 
 .post-delete-btn{
-  float: right;
+  float: left;
   margin-top: 5px;
+  clear: both;
 }
 
 #accountTable{
@@ -272,4 +273,12 @@
 
 #profileImage{
 	border: 1px solid black;
+}
+
+.userImageList{
+	float: right;
+}
+
+.userImageChat{
+	margin-right: 5px;
 }

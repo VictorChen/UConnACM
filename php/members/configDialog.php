@@ -9,7 +9,7 @@
             <div id="failureMessage" class="alert alert-error" style="display: none;"></div>
             <form action="changeImage.php" id="profileImageForm">
                 <input type="hidden" id="currentEmail" name="currentEmail"/>
-                <img id="profileImage" src="http://acm.uconn.edu/accountImages/default.png" width="50" height="50" />
+                <img id="profileImage" width="50" height="50" />
                 <input id="profileImageInput" type="file" name="image"/>
                 <input type="submit" id="changeImageBtn" class="btn" value="Change Image" />
             </form>
