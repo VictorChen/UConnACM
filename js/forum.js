@@ -96,20 +96,19 @@ function transitionToChat(){
     showChat();
 }
 
-function showChat(){
+function showChat(start){
     $.ajax({
         type: "POST",
         dataType: 'json',
         url: "showChat.php",
-        data: {filename: currentFilename, category: currentCategory[0]}
+        data: {filename: currentFilename, category: currentCategory[0], startFrom: start}
     }).done(function(results){
         if (results.error){
             $("#topicFailureMessage").empty().append(results.error).slideDown("fast");
         }else{
             $("#chat-title").empty().append(results.title).show("fast");
             $("#chat-content").empty().append(results.content).show("fast");
-            $("#chat-box").empty().append(results.messages).show("fast");
-            $("#chat-box").scrollTop($("#chat-box")[0].scrollHeight);
+            $("#chat-box").prepend(results.messages).show("fast");
         }
     });
 }
@@ -178,6 +177,7 @@ function showChatFromRecent(){
     $("#create-post").hide("fast");
     $("#category-list").hide("fast").empty();
     $("#chat-area").val('');
+    $("#chat-box").empty();
     $("#category-title").text(currentCategory[1]).show("fast");
     $("#backbtn2").show("fast");
     $("#delete-topic-btn").show("fast");
@@ -225,12 +225,20 @@ function editTopic(){
         if (results === "success"){
             $("#topicSuccessMessage").empty().append("Topic has been edited").slideDown("fase");
             $("#topicFailureMessage").slideUp("fast").empty();
-            $('#editModal').modal('hide')
+            $('#editModal').modal('hide');
+            $("#chat-box").empty();
             showChat();
             updateRecent();
         }else{
             $("#editErrorMessage").empty().append(results).slideDown("fast");
         }
+    });
+}
+
+function loadPrevious(start){
+    $(".btn-load-previous").fadeOut('fast', function(){
+        $(this).remove();
+        showChat(start);
     });
 }
 
@@ -266,7 +274,7 @@ $(function(){
 
     // Load more topics when scroll is near bottom
     $(document).scroll(function(){
-        if ($(window).scrollTop() >= ($(document).height() - $(window).height())*0.9){
+        if ($(window).scrollTop() >= ($(document).height() - $(window).height())*0.7){
             if (currentPage === 2){
                 retrieveTopics(topicStartLoad);
             }
