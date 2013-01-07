@@ -254,3 +254,22 @@
 	background-image: -o-linear-gradient(top, #05050C, #CDDBFF);
 	background-image: linear-gradient(to bottom, #05050C, #CDDBFF);
 }
+
+#profileImageForm{
+	border-bottom: 1px solid black;
+	padding: 10px;
+	background-color: #CFD4FF;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#CFD4FF), to(#F2F2F2));
+	background-image: -moz-linear-gradient(top, #CFD4FF, #F2F2F2);
+	background-image: -webkit-linear-gradient(top, #CFD4FF, #F2F2F2);
+	background-image: -o-linear-gradient(top, #CFD4FF, #F2F2F2);
+	background-image: linear-gradient(to bottom, #CFD4FF, #F2F2F2);
+}
+
+#changeImageBtn{
+	margin-left: 275px;
+}
+
+#profileImage{
+	border: 1px solid black;
+}

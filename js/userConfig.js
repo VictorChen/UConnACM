@@ -19,7 +19,7 @@ function passwordBlurCheck() {
 
 function trySubmitConfigForm() {
     // Do all validation server side since checking for email matches needs to be done there anyway
-    $.post('userConfig.php', $('#configForm').serialize(), function(data) {
+    $.post('userConfig.php', $('#configForm :input').serialize(), function(data) {
         if (data == 'SUCCESS') {
             location.reload(true);
         } else if (data == '') {
@@ -32,10 +32,17 @@ function trySubmitConfigForm() {
 
 function loadAccountData(accountHash, readonly) {
     $('#failureMessage').hide();
+
+    currentAccountHash = accountHash;
+
+    // Check if the user's image exists
+    loadImage();
+    
     // Get the server request started and do the rest while waiting on it
     $.getJSON('getAccountData.php?hash=' + accountHash, function(data) {
         if (data.success) {
             $('#oldEmail').val(data.email);
+            $('#currentEmail').val(data.email);
             $('#email').val(data.email);
             $('#pass').val('XXXXXXXXXXXXXXXXXXXX');
             $('#firstName').val(data.firstName);
@@ -80,3 +87,26 @@ function setConfigFormReadOnly(readonly) {
     if (readonly) $('#admin').click(function() { return false; });
     else $('#admin').click($.noop());
 }
+
+function loadImage(){
+    var timestamp = new Date().getTime();
+    var imageURL = "http://acm.uconn.edu/accountImages/"+currentAccountHash+".png?"+timestamp;
+    var successCallback = function(){
+        $("#profileImage").attr("src", imageURL);
+    };
+    var failCallback = function(){
+        $("#profileImage").attr("src", "http://acm.uconn.edu/accountImages/default.png?"+timestamp);
+    };
+    checkImage(imageURL, successCallback, failCallback);
+}
+
+$(function(){
+    $('#profileImageForm').ajaxForm(function(result) { 
+        if (result === "success"){
+            loadImage();
+            $('#failureMessage').slideUp("slow");
+        }else{
+            $('#failureMessage').html(result).slideDown("slow");
+        }
+    }); 
+});

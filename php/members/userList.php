@@ -23,6 +23,8 @@ if (!checkLoggedIn()) {
 		<script src="../../js/lib/jquery.js"></script>
         <script src="../../js/lib/jquery.tablesorter.min.js"></script>
 		<script src="../../js/lib/bootstrap.min.js"></script>
+        <script src="../../js/lib/jquery.form.js"></script>
+        <script src="../../js/lib/checkimg.js"></script>
         <script src="../../js/header.js"></script>
 		<script src="../../js/footer.js"></script>
 		<script src="../../js/googleanalytics.js"></script>
