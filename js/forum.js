@@ -111,7 +111,9 @@ function showChat(start){
         }else{
             $("#chat-title").empty().append(results.title).show("fast");
             $("#chat-content").empty().append(results.content).show("fast");
-            $("#chat-box").prepend(results.messages).show("fast");
+            $("#chat-box").show();
+            $(results.messages).hide().prependTo("#chat-box").slideDown("slow");
+
         }
     });
 }
