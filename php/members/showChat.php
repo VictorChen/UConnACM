@@ -31,7 +31,7 @@
     // Show previous 10 messages starting from the current message
     for ($i=$startFrom; $i>$prev; $i--){
         $hash = hashEmail($post->chat[$i]->email);
-        $tempMessage = '<div class="chat">';
+        $tempMessage = '<div class="chat" style="display: none;">';
         $tempMessage .= '<img class="userImageChat" src="http://acm.uconn.edu/accountImages/'.getUserImage(hashEmail($post->chat[$i]->email)).'" width="25" height="25" />';
         $tempMessage .= '<span class="chat-time-date">'.$post->chat[$i]->time.', '.$post->chat[$i]->date.'</span>';
         $tempMessage .= '<pre><a href="#configModal" onclick="loadAccountData(\'' . $hash . '\', true)" data-toggle="modal">'.htmlentities($post->chat[$i]->first).' '.htmlentities($post->chat[$i]->last).'</a>: '.htmlentities($post->chat[$i]->message).'</pre></div>';

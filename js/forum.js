@@ -112,7 +112,7 @@ function showChat(start){
             $("#chat-title").empty().append(results.title).show("fast");
             $("#chat-content").empty().append(results.content).show("fast");
             $("#chat-box").show();
-            $(results.messages).hide().prependTo("#chat-box").slideDown("slow");
+            $(results.messages).prependTo("#chat-box").slideDown("slow");
 
         }
     });
