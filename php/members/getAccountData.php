@@ -23,7 +23,7 @@ if ($account === FALSE) {
 }
 
 // These fields are mandatory
-$result = '{"success":true,"email":"'.escapeJsonString($account['email']).'","firstName":"'.escapeJsonString($account['firstName']).'","lastName":"'.escapeJsonString($account['lastName']).'","admin":"';
+$result = '{"success":true,"id":"'.$account['id'].'","email":"'.escapeJsonString($account['email']).'","firstName":"'.escapeJsonString($account['firstName']).'","lastName":"'.escapeJsonString($account['lastName']).'","admin":"';
 if ($account['authLevel'] == 1) $result .= 'true';
 
 // The remaining fields are optional ones but may cause javascript errors if they aren't given

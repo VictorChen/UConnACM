@@ -39,9 +39,7 @@
     $xml = "<?xml version='1.0'?>\n";
     $xml .= "<post>\n";
     $xml .= "<title>".escapeXmlString($title)."</title>\n";
-    $xml .= "<email>".escapeXmlString($_SESSION['account']['email'])."</email>\n";
-    $xml .= "<first>".escapeXmlString($_SESSION['account']['firstName'])."</first>\n";
-    $xml .= "<last>".escapeXmlString($_SESSION['account']['lastName'])."</last>\n";
+    $xml .= "<id>".$_SESSION['account']['id']."</id>\n";
     $xml .= "<date>".getChatDate(time())."</date>\n";
     $xml .= "<time>".getChatTime(time())."</time>\n";
     $xml .= "<category>".$category."</category>\n";

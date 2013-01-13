@@ -23,9 +23,7 @@
 
 	// Create the new message xml string
 	$xml = "<chat>";
-	$xml .= "<email>".escapeXmlString($_SESSION['account']['email'])."</email>";
-	$xml .= "<first>".escapeXmlString($_SESSION['account']['firstName'])."</first>";
-	$xml .= "<last>".escapeXmlString($_SESSION['account']['lastName'])."</last>";
+	$xml .= "<id>".escapeXmlString($_SESSION['account']['id'])."</id>";
 	$xml .= "<date>".getChatDate(time())."</date>";
 	$xml .= "<time>".getChatTime(time())."</time>";
 	$xml .= "<message>".escapeXmlString($message)."</message>";

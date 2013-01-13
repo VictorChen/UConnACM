@@ -1,5 +1,6 @@
 // Delete account functions
 var currentAccountHash = "";
+var currentID = "";
 
 function setCurrentAccount(accountHash) {
     currentAccountHash = accountHash;
@@ -33,11 +34,6 @@ function trySubmitConfigForm() {
 function loadAccountData(accountHash, readonly) {
     $('#failureMessage').hide();
 
-    currentAccountHash = accountHash;
-
-    // Check if the user's image exists
-    loadImage();
-    
     // Get the server request started and do the rest while waiting on it
     $.getJSON('getAccountData.php?hash=' + accountHash, function(data) {
         if (data.success) {
@@ -51,6 +47,10 @@ function loadAccountData(accountHash, readonly) {
             $('#major').val(data.major);
             $('#year').val(data.year);
             $('#aboutMe').val(data.aboutMe);
+
+            // Check if the user's image exists
+            currentID = data.id;
+            loadImage();
         }
     });
     
@@ -90,7 +90,7 @@ function setConfigFormReadOnly(readonly) {
 
 function loadImage(){
     var timestamp = new Date().getTime();
-    var imageURL = "http://acm.uconn.edu/accountImages/"+currentAccountHash+".png?"+timestamp;
+    var imageURL = "http://acm.uconn.edu/accountImages/"+currentID+".png?"+timestamp;
     var successCallback = function(){
         $("#profileImage").attr("src", imageURL);
     };

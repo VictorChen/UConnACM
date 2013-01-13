@@ -35,6 +35,7 @@
             if ($count >= $amountToLoad) break;
             $filePath = $categoriesLocation.$category."/".$file;
             $post = openFile($category, $file);
+            $accountData = getAccountDataByID($post->id);
 
             if (!$post){
                 echo "Error opening topic: ".$file;
@@ -47,11 +48,11 @@
                     $topics .= '<span class="label label-success">'.getChatTime(filemtime($filePath)).'</span>';
                     $topics .= '<span class="label label-info">'.getChatDate(filemtime($filePath)).'</span>';
                 $topics .= '</span>';
-                $topics .= '<span class="post-author">By: <a href="#configModal" onclick="loadAccountData(\'' . hashEmail($post->email) . '\', true)" data-toggle="modal">'.htmlentities($post->first).' '.htmlentities($post->last).'</a></span>';
+                $topics .= '<span class="post-author">By: <a href="#configModal" onclick="loadAccountData(\'' . hashEmail($accountData['email']) . '\', true)" data-toggle="modal">'.htmlentities($accountData['firstName']).' '.htmlentities($accountData['lastName']).'</a></span>';
                 $topics .= '<span class="post-filename">'.$file.'</span>';
                 if (checkAdmin()) $topics .= '<button class="btn btn-danger post-delete-btn">Delete Topic</button>';
                 else $topics .= "<div style='clear: both;'></div>";
-                $topics .= '<img class="userImageList" src="http://acm.uconn.edu/accountImages/'.getUserImage(hashEmail($post->email)).'" width="50" height="50" />';
+                $topics .= '<img class="userImageList" src="http://acm.uconn.edu/accountImages/'.getUserImage($accountData['id']).'" width="50" height="50" />';
             $topics .= '</li>';
         }
         $count++;

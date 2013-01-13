@@ -75,7 +75,7 @@ if (!isset($_POST['aboutMe'])) $_POST['aboutMe'] = '';
 
 // Create or modify the account
 if (isset($_POST['oldEmail']) && $_POST['oldEmail'] != '') {
-    $userData = getAccountData($_POST['oldEmail']);
+    $userData = getAccountDataByEmail($_POST['oldEmail']);
 }
 
 if (!isset($userData) || $userData === FALSE) $userData = array();
@@ -102,6 +102,7 @@ $result = FALSE;
 if (isset($_POST['oldEmail']) && $_POST['oldEmail'] != '') {
     $result = modifyAccount($_POST['oldEmail'], $userData);
 } else {
+    $userData['id'] = date("U").mt_rand();
     $result = createAccount($userData);
 }
 if (!$result) {

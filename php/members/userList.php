@@ -19,7 +19,7 @@ if (!checkLoggedIn()) {
 		<link rel="stylesheet" href="../../css/style.css" type="text/css" />
 		<link rel="stylesheet" href="../../css/bootstrap.css" type="text/css" />
         <link rel="stylesheet" href="../../css/members.css" type="text/css" />
-		<link rel="shortcut icon" href="img/icon.ico">
+		<link rel="shortcut icon" href="../../img/icon.ico">
 		<script src="../../js/lib/jquery.js"></script>
         <script src="../../js/lib/jquery.tablesorter.min.js"></script>
 		<script src="../../js/lib/bootstrap.min.js"></script>
@@ -103,7 +103,7 @@ if (!checkLoggedIn()) {
                                                 if ($entry != '.' && $entry != '..') {
                                                     $account = getAccountDataByHash($entry);
                                                     
-                                                    echo '<tr><td><img src="http://acm.uconn.edu/accountImages/'.getUserImage($entry).'" width="50" height="50" /></td>';
+                                                    echo '<tr><td><img src="http://acm.uconn.edu/accountImages/'.getUserImage($account['id']).'" width="50" height="50" /></td>';
                                                     echo '<td>' . $account['email'] . '</td>';
                                                     echo '<td>' . $account['firstName'] . '</td>';
                                                     echo '<td>' . $account['lastName'] . '</td>';

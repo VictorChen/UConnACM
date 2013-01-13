@@ -12,5 +12,5 @@
     }
     
     // Pretty print for xml
-    echo xmlpp($post->asXML());
+    echo $post->asXML();
 ?>

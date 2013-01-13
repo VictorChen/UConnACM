@@ -26,7 +26,8 @@
 		exit();
 	}
 	
-	$filename = hashEmail($email).".png";
+	$accountData = getAccountDataByEmail($email);
+	$filename = $accountData['id'].".png";
 
 	switch($_FILES['image']['error']) {
 		case UPLOAD_ERR_OK:

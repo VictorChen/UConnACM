@@ -96,10 +96,10 @@ function transitionToChat(){
     $("#chat-post-btn").show("fast");
     currentFilename = $(this).find(".post-filename").text();
     currentPage = 3;
-    showChat();
+    showChat(true);
 }
 
-function showChat(start){
+function showChat(animation, start){
     $.ajax({
         type: "POST",
         dataType: 'json',
@@ -112,8 +112,12 @@ function showChat(start){
             $("#chat-title").empty().append(results.title).show("fast");
             $("#chat-content").empty().append(results.content).show("fast");
             $("#chat-box").show();
-            $(results.messages).prependTo("#chat-box").slideDown("slow");
-
+            var message = $(results.messages).prependTo("#chat-box");
+            if (animation){
+                message.slideDown("slow");
+            }else{
+                message.show();
+            }
         }
     });
 }
@@ -147,9 +151,10 @@ function createMessage(){
     }).done(function(results) {
         if (results === "success"){
             $("#topicFailureMessage").slideUp("fast").empty();
+            $("#topicSuccessMessage").empty().append("Successfully posted message").slideDown("fast");
             $("#chat-box").empty();
             $("#chat-area").val('');
-            showChat();
+            showChat(false);
             updateRecent();
         }else{
             $("#topicFailureMessage").empty().append(results).slideDown("fast");
@@ -190,7 +195,7 @@ function showChatFromRecent(){
     $("#chat-area").show("fast");
     $("#chat-post-btn").show("fast");
     currentPage = 3;
-    showChat();
+    showChat(true);
 }
 
 function deleteTopic(){
@@ -232,7 +237,7 @@ function editTopic(){
             $("#topicFailureMessage").slideUp("fast").empty();
             $('#editModal').modal('hide');
             $("#chat-box").empty();
-            showChat();
+            showChat(true);
             updateRecent();
         }else{
             $("#editErrorMessage").empty().append(results).slideDown("fast");
@@ -243,7 +248,7 @@ function editTopic(){
 function loadPrevious(start){
     $(".btn-load-previous").fadeOut('fast', function(){
         $(this).remove();
-        showChat(start);
+        showChat(true, start);
     });
 }
 

@@ -18,7 +18,7 @@ if (!checkLoggedIn()) {
 		<link rel="stylesheet" href="../../css/style.css" type="text/css" />
 		<link rel="stylesheet" href="../../css/bootstrap.css" type="text/css" />
         <link rel="stylesheet" href="../../css/members.css" type="text/css" />
-		<link rel="shortcut icon" href="img/icon.ico">
+		<link rel="shortcut icon" href="../../img/icon.ico">
 		<script src="../../js/lib/jquery.js"></script>
         <script src="../../js/lib/jquery.tablesorter.min.js"></script>
 		<script src="../../js/lib/bootstrap.min.js"></script>
