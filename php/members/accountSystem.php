@@ -58,7 +58,7 @@ function createAccount($accountData) {
 }
 
 // Deletes a currently existing account from the database
-function deleteAccount($email) {
+function deleteAccount($email, $deleteImg = TRUE) {
     global $databaseLocation;
     global $idLocation;
     global $userImageLocation;
@@ -73,8 +73,10 @@ function deleteAccount($email) {
     if ($result === FALSE) return FALSE;
 
     // Delete user's image, if any
-    $pic = $userImageLocation . $accountData['id'] . ".png";
-    if (file_exists($pic)) unlink($pic);
+    if ($deleteImg){
+        $pic = $userImageLocation . $accountData['id'] . ".png";
+        if (file_exists($pic)) unlink($pic);
+    }
 
     // Delete file from accounts
     $targetFile = $databaseLocation . $hash;
@@ -126,7 +128,7 @@ function getAccountData($targetFile) {
 // Modify the properties of an account
 function modifyAccount($oldEmail, $accountData) {
     ignore_user_abort(true);
-    deleteAccount($oldEmail);
+    deleteAccount($oldEmail, FALSE);
     $result = createAccount($accountData);
     ignore_user_abort(false);
     return $result;

@@ -11,6 +11,6 @@
         exit();
     }
     
-    // Pretty print for xml
+    // Output the xml
     echo $post->asXML();
 ?>

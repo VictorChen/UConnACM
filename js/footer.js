@@ -9,7 +9,7 @@ function displayFooter(path){
 		</span>\
 	</div>").prependTo("footer");
 	
-	var lastUpdated = "January 03, 2012";
+	var lastUpdated = "January 12, 2012";
 	$("footer .footer-info").append("<span class='separate-bar'> |</span> Last updated " + lastUpdated);
 
 	$("#vchen").popover({
