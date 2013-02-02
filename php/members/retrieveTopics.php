@@ -36,6 +36,8 @@
             $filePath = $categoriesLocation.$category."/".$file;
             $post = openFile($category, $file);
             $accountData = getAccountDataByID($post->id);
+            $link = '<a href="#configModal" onclick="loadAccountData(\'' . hashEmail($accountData['email']) . '\', true)" data-toggle="modal">'.htmlentities($accountData['firstName']).' '.htmlentities($accountData['lastName']).'</a>';
+            if (!$accountData) $link = "[Deleted User]";
 
             if (!$post){
                 echo "Error opening topic: ".$file;
@@ -48,7 +50,7 @@
                     $topics .= '<span class="label label-success">'.getChatTime(filemtime($filePath)).'</span>';
                     $topics .= '<span class="label label-info">'.getChatDate(filemtime($filePath)).'</span>';
                 $topics .= '</span>';
-                $topics .= '<span class="post-author">By: <a href="#configModal" onclick="loadAccountData(\'' . hashEmail($accountData['email']) . '\', true)" data-toggle="modal">'.htmlentities($accountData['firstName']).' '.htmlentities($accountData['lastName']).'</a></span>';
+                $topics .= '<span class="post-author">By: '.$link.'</span>';
                 $topics .= '<span class="post-filename">'.$file.'</span>';
                 if (checkAdmin()) $topics .= '<button class="btn btn-danger post-delete-btn">Delete Topic</button>';
                 else $topics .= "<div style='clear: both;'></div>";

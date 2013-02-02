@@ -32,7 +32,7 @@ function retrieveTopics(){
     }).done(function(results) {
         $("#category-list").append(results.topics).show("fast");
         $('.post-author').off('click');
-        $('.post-author').click(function(event){
+        $('.post-author a').click(function(event){
             event.stopImmediatePropagation();   // Stop chat from showing when user is clicked
             $("#configModal").modal('show');    // Show the user's profile
         });

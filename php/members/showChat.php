@@ -32,21 +32,24 @@
     // Show previous 10 messages starting from the current message
     for ($i=$startFrom; $i>$prev; $i--){
         $accountData = getAccountDataByID($post->chat[$i]->id);
-        $hash = hashEmail($accountData['email']);
+        $link = '<a href="#configModal" onclick="loadAccountData(\'' . hashEmail($accountData['email']) . '\', true)" data-toggle="modal">'.htmlentities($accountData['firstName']).' '.htmlentities($accountData['lastName']).'</a>';
+        if (!$accountData) $link = "[Deleted User]";
+
         $tempMessage = '<div class="chat" style="display: none;">';
         $tempMessage .= '<img class="userImageChat" src="http://acm.uconn.edu/accountImages/'.getUserImage($accountData['id']).'" width="25" height="25" />';
         $tempMessage .= '<span class="chat-time-date">'.$post->chat[$i]->time.', '.$post->chat[$i]->date.'</span>';
-        $tempMessage .= '<pre><a href="#configModal" onclick="loadAccountData(\'' . $hash . '\', true)" data-toggle="modal">'.htmlentities($accountData['firstName']).' '.htmlentities($accountData['lastName']).'</a>: '.htmlentities($post->chat[$i]->message).'</pre></div>';
+        $tempMessage .= '<pre>'.$link.': '.htmlentities($post->chat[$i]->message).'</pre></div>';
         $messages = $tempMessage.$messages;
     }
     $messages = $prevButton.$messages;
 
     // Get content of original post
     $accountData = getAccountDataByID($post->id);
-    $hash = hashEmail($accountData['email']);
+    $link = '<a href="#configModal" onclick="loadAccountData(\'' . hashEmail($accountData['email']) . '\', true)" data-toggle="modal">'.htmlentities($accountData['firstName']).' '.htmlentities($accountData['lastName']).'</a>';
+    if (!$accountData) $link = "[Deleted User]";
     $content = '<img class="userImageChat" src="http://acm.uconn.edu/accountImages/'.getUserImage($accountData['id']).'" width="25" height="25" />';
     $content .= '<span class="chat-time-date">'.$post->time.', '.$post->date.'</span>';
-    $content .= '<pre><a href="#configModal" onclick="loadAccountData(\'' . $hash . '\', true)" data-toggle="modal">'.htmlentities($accountData['firstName']).' '.htmlentities($accountData['lastName']).'</a>: '.htmlentities($post->content).'</pre>';
+    $content .= '<pre>'.$link.': '.htmlentities($post->content).'</pre>';
     
     // Return data as json
     echo '{"title": "'.escapeJsonString(htmlentities($post->title)).'","content":"'.escapeJsonString($content).'","messages":"'.escapeJsonString($messages).'"}';
