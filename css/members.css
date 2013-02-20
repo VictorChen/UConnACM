@@ -169,6 +169,10 @@
 	text-align: center;
 }
 
+#chat-content pre{
+	word-break: normal;
+}
+
 #chat-area{
 	width: 100%;
 	resize: auto;

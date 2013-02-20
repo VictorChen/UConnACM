@@ -72,14 +72,22 @@
 						
 						<div id="download" style="display: none;" class="span9 menuItem">
 							<h2>Download source code:</h2>
-							<p>We are currently fixing up the code. Stay tuned!</p>
+							<a class="btn btn-primary btn-large" href="http://acm.uconn.edu/files/pacman2013/ACM_Competition_PacMan.zip">
+								<i class="icon-download-alt icon-white"></i>
+								Download
+							</a>
 							<h2>Import code to eclipse:</h2>
-							<p>1. File >> Import</p>
+							<p>1. Extract zip file</p>
+							<p>2. Open Eclipse</p>
+							<p>3. File >> Import</p>
 							<img class="center" src="../img/import1.png"></img>
-							<p>2. Select "Existing Projects into Workspace"</p>
+							<p>4. Select "Existing Projects into Workspace"</p>
 							<img class="center" src="../img/import2.png"></img>
-							<p>3. Done! You should now see the folder containing the source code
+							<p>5. Click "Browse"</p>
 							<img class="center" src="../img/import3.png"></img>
+							<p>6. Look for the extracted folder</p>
+							<p>7. Done! You should now see the folder containing the source code
+							<img class="center" src="../img/import4.png"></img>
 						</div>
 						
 						<div id="start" style="display: none;" class="span9 menuItem">
@@ -96,7 +104,7 @@
 							<p>The move method is the most important part of the program. This is where you will write your algorithm to control the pacman. This method returns an integer: 1 = go up, 2 = go down, 3 = go left, 4 = go right and 5 = continue going the current direction. If you want your code to be more readable, you can return Constant.UP, Constant.DOWN, Constant.LEFT, Constant.RIGHT or Constant.CONTINUE instead of numbers.</p>
 							<p>Example given in PacMan2.java:</p>
 							<img class="center" src="../img/move_method.png"></img>
-							<p>The above code is a very simple algorithm for controlling the pacman. If first checks if the pacman is at a particular block and not in between two blocks. Constant.BLOCK_SIZE is the size of a square in the map and getX() and getY() returns the x and y coordinate of the pacman. If it is, then it simply takes a random direction. If it is not, then it will continue going its current direction. Note that initially, the pacman will be in a particular block. Also, if the direction returned is invalid (going that direction will hit a wall) then pacman will use its current direction instead.</p>
+							<p>The above code is a very simple algorithm for controlling the pacman. If first checks if the pacman is at a particular block and not in between two blocks (inBlock() method). If it is, then it simply takes a random direction. If it is not, then it will continue going its current direction. Note that initially, the pacman will be in a particular block. Also, if the direction returned is invalid (going that direction will hit a wall) then pacman will use its current direction instead.</p>
 						</div>
 						
 						<div id="rules" style="display: none;" class="span9 menuItem">

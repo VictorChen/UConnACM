@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>UCONN ACM Unsubscribe</title>
+		<meta charset="UTF-8">
+		<meta name="robots" content="noindex">
+		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+		<link rel="stylesheet" href="css/signup.css" type="text/css" />
+		<link rel="shortcut icon" href="img/icon.ico">
+		<script src="js/lib/jquery.js"></script>
+		<script src="js/lib/bootstrap.min.js"></script>
+		<script src="js/header.js"></script>
+		<script src="js/footer.js"></script>
+		<script src="js/googleanalytics.js"></script>
+		<script type="text/javascript">
+			function validateForm(){
+				if (validateEmail()){
+					$.ajax({
+                        type: "POST",
+                        url: "php/unsubscribe.php",
+                        data: {email: $("#inputEmail").val()}
+                    }).done(function() {
+                    	$("#signup-form")[0].reset();
+                    	$("#success-info").slideDown();
+                    });
+				}else{
+					$("#success-info").slideUp();
+				}
+				return false;
+			}
+			
+			function validateEmail(){
+				var x = $("#inputEmail").val();
+				var atpos = x.indexOf("@");
+				var dotpos = x.lastIndexOf(".");
+				if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length){
+					$("#inputEmail").next().show("slow");
+					return false;
+				}
+				$("#inputEmail").next().hide("slow");
+				return true;
+			}
+			
+			$(document).ready(function(){
+				displayHeader("");
+				displayFooter("");
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="page-wrapper">
+			<div class="content-wrapper">
+				<div id="page-header" class="row-fluid">
+					<div class="span12 hero-unit black">
+						<h1>Unsubscribe from Mailing List</h1>
+						<p>Sorry! We'll stop sending you emails!</p>
+					</div>
+				</div>
+				
+				<div class="content-padded">
+					<div id="success-info" class="alert alert-success" style="display: none;">
+                        Success! You will be removed from our mailing list.
+                    </div>
+					<div class="signup-box well">
+						<form id="signup-form" class="form-horizontal" onSubmit="return validateForm();">
+							<legend>Unsubscribe</legend>
+							<div class="control-group">
+								<label class="control-label" for="inputEmail">Email:</label>
+								<div class="controls">
+									<input type="text" id="inputEmail" name="inputEmail" placeholder="bill.gates@microsoft.com" />
+									<span class="label label-important" style="display: none;">Please enter a valid email</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls">
+									<button type="submit" class="btn btn-primary">Submit</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<footer></footer>
+		</div>
+	</body>
+</html>
